@@ -13,6 +13,7 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 
+
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.7/howto/deployment/checklist/
 
@@ -48,9 +49,9 @@ MIDDLEWARE_CLASSES = (
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 )
 
-ROOT_URLCONF = 'BeerBook.urls'
+ROOT_URLCONF = 'beerbook.urls'
 
-WSGI_APPLICATION = 'BeerBook.wsgi.application'
+WSGI_APPLICATION = 'beerbook.wsgi.application'
 
 
 # Database
