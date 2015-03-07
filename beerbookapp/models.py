@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
+from django.template.defaultfilters import slugify
 
 # Create your models here.
 
@@ -44,10 +45,15 @@ class Beer(models.Model):
     introduced = models.DateField()
     image = models.ImageField(upload_to='beer_images', blank=True)
     country = CountryField(blank_label='(select country)')
+    slug = models.SlugField(unique=True)
 
     # relationships
     type = models.ForeignKey(BeerType)
     producer = models.ForeignKey(BeerProducer)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Beer, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -75,9 +81,14 @@ class Pub(models.Model):
     description = models.TextField()
     established = models.DateField()
     image = models.ImageField(upload_to='pub_images', blank=True)
+    slug = models.SlugField(unique=True)
 
     # relationships
     location = models.ForeignKey(Location)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Pub, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name

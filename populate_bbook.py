@@ -28,7 +28,7 @@ def populate():
     add_beer_type("American lager")
 
     # producers
-    add_beer_producer("Anheuser_busch InBev")
+    add_beer_producer("Anheuser Busch InBev")
     add_beer_producer("Diageo")
     add_beer_producer("Heineken International")
 
