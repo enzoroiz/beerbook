@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<title>Beerbook - {% block title %}Base Page{% endblock %}</title>
+	</head>
+	
+	<body>
+		
+		<div> <!-- MENU -->
+			<P>Menu</P>
+			<a href="{% url 'beer_catalogue' %}">Beer Catalogue</a>
+			<a href="{% url 'event_catalogue' %}">Event Catalogue</a>
+			<a href="{% url 'user_profile' %}">User Profile</a>
+		</div>
+		<hr>
+		
+		<div> <!-- BODY -->
+			{% block body_block %}{% endblock %}
+		</div>		
+		<hr>
+		
+		<div> <!-- FOOTER -->
+			<P>Footer</P>
+		</div>
+	</body>
+</html>

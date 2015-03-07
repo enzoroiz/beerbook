@@ -94,3 +94,11 @@ STATIC_PATH = os.path.join(BASE_DIR, 'static')  # path to tango static files
 print "Static files loc: " + STATIC_PATH
 
 STATICFILES_DIRS = (STATIC_PATH,)
+
+# templates
+TEMPLATE_PATH = os.path.join(BASE_DIR, 'templates')  # path to tango templates
+TEMPLATE_DIRS = [
+    # use forward slashes
+    # must be absolute paths
+    TEMPLATE_PATH,
+    ]
