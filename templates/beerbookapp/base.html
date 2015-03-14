@@ -51,9 +51,10 @@
 
             <ul class="nav navbar-nav navbar-right">
                 {% if user.is_authenticated %}
-                <li><a href="{% url 'auth_logout' %}?next=/rango/">Logout</a></li>
+                <li><a href="#">Logout</a></li>
                 {% else %}
-                <li><a href="{% url 'auth_login' %}">Login</a></li>
+                <li><a href="#">Login</a></li>
+                {% endif %}
             </ul>
         </div>
     </div>
