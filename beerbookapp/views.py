@@ -10,9 +10,9 @@ def index(request):
     return response
 
 
-def beer_catalogue(request):
-    response = render(request, 'beerbookapp/beer_catalogue.html')
-    return response
+# def beer_catalogue(request):
+#     response = render(request, 'beerbookapp/beer_catalogue.html')
+#     return response
 
 
 def user_profile(request):

@@ -1,0 +1,55 @@
+{% extends 'beerbookapp/base.html' %}	
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+
+	{% if beer %}
+	
+		<div class="page-header"><h1><p>{{ beer.name }}</p></h1></div>
+		<div class="rows">
+			<div class="col-md-3">		
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					IMAGE
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-md-5">		
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					
+					
+					<p>{{ beer.description }}</p>
+					
+					
+				  </div>
+				</div>
+			</div>
+			
+			<div class="col-md-4">		
+				<div class="panel panel-default">
+				  <div class="panel-body">
+					REVIEWS
+				  </div>
+				</div>
+			</div>
+		
+		
+		
+		
+		</div>
+	
+	
+	
+	
+	
+	
+		
+	{% else %}
+		<strong>Beer not found</strong>
+	{% endif %}
+	
+{% endblock %}	

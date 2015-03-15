@@ -3,5 +3,117 @@
 {% block title %}Beer Catalogue{% endblock %}
 
 {% block body_block %}
-	<p>This is : Beer Catalogue</p>
+	<div class="page-header"><h2>Beer Catalogue</h2></div>
+	
+	
+	
+	
+	<div class="rows">
+				
+		<div class="col-md-3">	<!-------------------------------------------------------------SEARCH------------------>			
+			<form role="form" class="form-horizontal" method="post" action=".">
+				{% csrf_token %}
+				<fieldset>
+					
+					<div class="panel panel-primary">
+						<div class="panel-heading"><h3 class="panel-title">Search Catalogue</h3></div>
+						<div class="panel-body">						
+							<div class="form-group">
+								<label for="id_name" class="col-sm-3 control-label">Name:</label>
+								<div class="col-sm-9">
+									<input id="id_name" class="form-control input-sm" name="beername" maxlenght="10" type="text" placeholder="Enter beer name"/>					
+								</div>			
+							</div>
+							
+							<div class="form-group">								
+								<label for="id_type" class="col-lg-3 control-label">Type:</label>
+								<div class="col-lg-9">
+									<select class="form-control input-sm" name="beertype">
+										<option selected ="selected" value="0">(Not Selected)</option>
+										{% if beer_types %}
+											{% for beertype in beer_types %}
+											<option value="{{ beertype.name }}">{{ beertype.name }}</option>
+											{% endfor %}
+										{% endif %}
+									</select>
+								</div>										
+							</div>
+							
+							
+							<div class="form-group">
+								<div class="col-lg-3">Price</div>	
+								<label for="id_price_from" class="col-lg-4 control-label">From:</label>								
+								<div class="col-lg-5">
+									<input class="form-control input-sm" id="id_price_from" name="pricefrom" type="number" min="0" step="0.01" max="200"/>					
+								</div>
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-3"></div>
+								<label for="id_price_to" class="col-lg-4 control-label">To:</label>
+								<div class="col-lg-5">
+									<input class="form-control input-sm" id="id_price_to" name="priceto" type="number" min="0" step="0.01" max="200"/>					
+								</div>			
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-4">Rating</div>
+								<label for="id_rating_max" class="col-lg-3 control-label">Max:</label>
+								<div class="col-lg-5">
+									<select class="form-control input-sm" name="ratingmax">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+									</select>
+								</div>	
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-4"></div>
+								<label for="id_rating_max" class="col-lg-3 control-label">Min:</label>
+								<div class="col-lg-5">
+									<select class="form-control input-sm" name="ratingmax">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option selected="selected" value="5">5</option>
+									</select>
+								</div>	
+							</div>
+							<div class="col-lg-4 col-lg-offset-8">
+								<button type="submit" class="btn btn-primary">Search</button>
+							</div>
+						</div>
+					</div>
+				</fieldset>
+			</form>
+		</div>
+	
+		<div class="col-md-8"> <!------------------------------------------------------------------------BEER LIST----------->
+			<div class="well">
+						
+				<div class="list-group">
+					{% if search_beer %}
+						<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
+							<h4 class="list-group-item-heading">{{ search_beer.name }}</h4>
+							<p class="list-group-item-text">{{ search_beer.name }}</p>
+						</a>
+					{% elif beer_list %}
+						{% for beer in beer_list %}
+							<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
+							<h4 class="list-group-item-heading">{{ beer.name }}</h4>
+							<p class="list-group-item-text">{{ beer.type }} {{ beer.country }}</p>
+						</a>
+						{% endfor %}
+					{% else %}
+						<strong>No beers found</strong>
+					{% endif %}				
+				<div>
+			</div>
+		</div>		
+	</div>
+	
 {% endblock %}
