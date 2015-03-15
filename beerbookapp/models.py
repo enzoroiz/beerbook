@@ -51,6 +51,9 @@ class Beer(models.Model):
     type = models.ForeignKey(BeerType)
     producer = models.ForeignKey(BeerProducer)
 
+    # dummy variable
+    avgrating = models.IntegerField(default=0)
+
     def save(self, *args, **kwargs):
         self.slug = slugify(self.name)
         super(Beer, self).save(*args, **kwargs)

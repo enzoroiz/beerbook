@@ -1,5 +1,6 @@
 {% extends 'beerbookapp/base.html' %}
 
+
 {% block title %}Beer Catalogue{% endblock %}
 
 {% block body_block %}
@@ -96,17 +97,41 @@
 			<div class="well">
 						
 				<div class="list-group">
-					{% if search_beer %}
-						<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
-							<h4 class="list-group-item-heading">{{ search_beer.name }}</h4>
-							<p class="list-group-item-text">{{ search_beer.name }}</p>
-						</a>
+					{% if search_beer %}						
+							<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
+								<h4 class="list-group-item-heading">{{ search_beer.name }}</h4>
+								<p class="list-group-item-text">{{ search_beer.name }}</p>
+							</a>						
 					{% elif beer_list %}
 						{% for beer in beer_list %}
+							
+							
+							
 							<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
-							<h4 class="list-group-item-heading">{{ beer.name }}</h4>
-							<p class="list-group-item-text">{{ beer.type }} {{ beer.country }}</p>
-						</a>
+								<h4 class="list-group-item-heading">{{ beer.name }}</h4>								
+								<p class="list-group-item-text">
+									<div class="col-md-9">
+										{{ beer.type }} {{ beer.country }}
+									</div>
+									
+									
+									<div class="col-md-3">											
+										{% if beer.avgrating == null %}
+											<p>Unrated</p>
+										{% else %}
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 1 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 2 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 3 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 4 %}checked="checked"{% endif %}/> 
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 5 %}checked="checked"{% endif %}/> 						   
+										{% endif %}
+									</div>
+									
+								</p><br>
+							</a>
+							
+							{% comment %} <!------------------------------------comment START -->
+							{% endcomment %} <!------------------------------------comment END -->
 						{% endfor %}
 					{% else %}
 						<strong>No beers found</strong>
