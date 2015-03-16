@@ -9,6 +9,14 @@ from django.db import connection
 #from beerbookapp.forms import BeerCatSearch
 
 
+# view for adding rating to beer
+def add_rating(request, beer_name_slug, ):
+
+    reponse - render(request, 'beerbookapp/add_rating.html')
+    return response
+
+
+# view for individual beers
 def beer(request, beer_name_slug):
 
     context_dict = {}
@@ -23,10 +31,12 @@ def beer(request, beer_name_slug):
     except:
         pass
 
+    print context_dict
     response = render(request, 'beerbookapp/beer.html', context_dict)
     return response
 
 
+# view for beer catalogue
 def beer_catalogue(request):
 
     context_dict = {}
