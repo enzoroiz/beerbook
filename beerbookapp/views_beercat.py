@@ -4,6 +4,8 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from beerbookapp.models import BeerType, Beer, Rating
+from django.db.models import Avg
+from django.db import connection
 #from beerbookapp.forms import BeerCatSearch
 
 
@@ -43,21 +45,23 @@ def beer_catalogue(request):
 
     else:
         beer_types = BeerType.objects.all()
-        beer_list = Beer.objects.all()
 
-        for this_beer in beer_list:
-            rating_list = Rating.objects.filter(rated_beer=this_beer)
-            this_beer.avgrating = (rate_beers(rating_list))
+        cursor = connection.cursor()
+        cursor.execute("""
+                        select B.slug, B.name, T.name, AVG(R.rating)
+                        from beerbookapp_Beer B
+                        left outer join
+                        beerbookapp_Rating R
+                        on B.id = R.rated_beer_id
+                        left outer join
+                        beerbookapp_BeerType T
+                        on B.type_id = T.id
+                        group by B.id
+                        """)
+        query_result = cursor.fetchall()
 
-
-
-        print beer_list
-        # context_dict['beer_ratings'] = rating_dict
-        # context_dict['beer_list'] = beer_list
-
-        context_dict['beer_list'] = beer_list
+        context_dict['beer_list'] = query_result
         context_dict['beer_types'] = beer_types
-        print context_dict
 
     response = render(request, 'beerbookapp/beer_catalogue.html', context_dict)
     return response
@@ -76,3 +80,8 @@ def rate_beers(rating_list):
             return rating_total / beer_ratings_number
 
     return None
+
+
+# used to check how the heck django names columns
+        # for field in <MODELNAME>._meta.fields:
+        #     print field.get_attname_column()

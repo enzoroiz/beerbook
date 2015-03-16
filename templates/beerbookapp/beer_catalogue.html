@@ -103,27 +103,24 @@
 								<p class="list-group-item-text">{{ search_beer.name }}</p>
 							</a>						
 					{% elif beer_list %}
-						{% for beer in beer_list %}
-							
-							
-							
-							<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
-								<h4 class="list-group-item-heading">{{ beer.name }}</h4>								
+						{% for beer in beer_list %}	
+							<a href="/beerbook/beer_catalogue/{{ beer.0 }}" class="list-group-item">
+								<h4 class="list-group-item-heading">{{ beer.1 }}</h4>								
 								<p class="list-group-item-text">
 									<div class="col-md-9">
-										{{ beer.type }} {{ beer.country }}
+										{{ beer.2 }} 
 									</div>
 									
 									
 									<div class="col-md-3">											
-										{% if beer.avgrating == null %}
+										{% if beer.3 == null %}
 											<p>Unrated</p>
 										{% else %}
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 1 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 2 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 3 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 4 %}checked="checked"{% endif %}/> 
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.avgrating == 5 %}checked="checked"{% endif %}/> 						   
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 1 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 2 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 3 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 4 %}checked="checked"{% endif %}/> 
+										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 5 %}checked="checked"{% endif %}/> 						   
 										{% endif %}
 									</div>
 									
@@ -131,6 +128,9 @@
 							</a>
 							
 							{% comment %} <!------------------------------------comment START -->
+							{% for this_test in test %}
+							{{ this_test.name }} {{this_test.1}}<br>
+							{% endfor %}	
 							{% endcomment %} <!------------------------------------comment END -->
 						{% endfor %}
 					{% else %}
@@ -138,7 +138,11 @@
 					{% endif %}				
 				<div>
 			</div>
-		</div>		
-	</div>
+		</div>
+			
+	</div>	
+	
+	
+	
 	
 {% endblock %}
