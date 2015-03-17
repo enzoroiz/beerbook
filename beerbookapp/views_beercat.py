@@ -10,9 +10,25 @@ from django.db import connection
 
 
 # view for adding rating to beer
-def add_rating(request, beer_name_slug, ):
+def add_rating(request):
 
-    reponse - render(request, 'beerbookapp/add_rating.html')
+    print "in add rating"
+    beerslug = None
+    user = None
+    rating = None
+    review = None
+
+    if request.method == 'GET':
+        beer_slug = request.GET['beer_slug']
+        #user = request.GET['user']
+        #rating = request.GET['rating']
+
+        print beer_slug
+        #print user
+        #print rating
+
+
+    response = HttpResponse()
     return response
 
 
@@ -31,7 +47,6 @@ def beer(request, beer_name_slug):
     except:
         pass
 
-    print context_dict
     response = render(request, 'beerbookapp/beer.html', context_dict)
     return response
 
