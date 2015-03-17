@@ -8,39 +8,49 @@
 	{% if beer %}
 	
 		<div class="page-header"><h1><p>{{ beer.name }}</p></h1></div>
-		<div class="rows">
-			<div class="col-md-3">		
-				<div class="panel panel-default">
+		
+			<div class="col-md-3">	<!---------------------------------------------- IMAGE -->	
+				<div class="panel panel-primary">
 				  <div class="panel-body">
 					<div class="col-md-12"> 
-						<img class="img-rounded" src="/media/{{ beer.image }}" width="100%" alt="No picture uploaded">
+						{% if beer.image != "" %}
+							<img class="img-rounded" src="/media/{{ beer.image }}" width="100%" alt="No picture found">
+						{% else %}
+							<img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100%" alt="YEH No picture found">
+						{% endif %}
 					</div>
 					
-					<div class="col-md-8 col-md-offset-3">						
+					<div class="col-md-12">						
 						{% if rating == null %}
-							<p>Unrated</p>
+							<center><br><p>Unrated</p></center>
 						{% else %}
+							<center>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 1 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 2 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 3 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 4 %}checked="checked"{% endif %}/> 
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 5 %}checked="checked"{% endif %}/>
+							</center>
 						{% endif %}
-						<br><br>
-						
-							<button id="rate-btn" class="btn btn-primary">Rate It!</button>
-						
+						<br>						
+					</div>
+					<div class="col-md-2"></div>
+					<div class="col-md-12">
+						<center><button id="rate-btn" class="btn-sm btn-primary">Rate It!</button></center>
 					</div>						
 					
 				  </div>
 				</div>
 			</div>
 			
-			<div class="col-md-5">		
-				<div class="panel panel-default">
+			<div class="col-md-5">	<!---------------------------------------------- DATA -->	
+				<div class="panel panel-primary">
 				  <div class="panel-body">
 					
-					
+					<p>Type: {{ beer.type }}</p>										
+					<p>Producer: {{ beer.producer }}</p>
+					<p>Country of Origin: {{ beer.country.name }}</p>
+					<p>Introduced: {{ beer.introduced|date:"Y" }}</p>
 					<p>{{ beer.description }}</p>
 					
 					
@@ -48,30 +58,54 @@
 				</div>
 			</div>
 			
-			<div class="col-md-4">		
-				<div class="panel panel-default">
-				  <div class="panel-body">
-					REVIEWS
-				  </div>
+			<div class="col-md-4">	<!---------------------------------------------- REVIEWS -->
+				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Reviews</h3>
+					</div>					
+					<div class="list-group">
+						{% if rating_list %}
+							{% for this_rating in rating_list %}
+								
+									{% if this_rating.review != null %}									
+										<div class="list-group-item">
+											<h4 class="list-group-item-heading">"{{ this_rating.review }}" <br>- {{ this_rating.rating}}/5</h4>
+											<p align="right" class="list-group-item-text">- {{ this_rating.owner }}</p>
+										</div>
+									
+									
+									{% endif %}
+								
+							{% endfor %}
+						{% else %}
+							<center><strong>This beer has not been reviewed yet</strong></center>
+						{% endif %}
+					</div>
+					
 				</div>
 			</div>
 		</div>
 	
 	<!-- RATING POPUP CONTENT -->
 	<div id="rate-popup" class="ui-helper-hidden">
-		<br>
-		<div class="col-md-8 col-md-offset-3">
+		<br>		
+		<div class="col-md-12">
+			<textarea style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
+		</div>		
+		<br><br><br><br><br><br><br>
+		<div class="col-md-7">
 			<input name="add-rating" value="1" type="radio" class="star"/>
 			<input name="add-rating" value="2" type="radio" class="star"/>
 			<input name="add-rating" value="3" type="radio" class="star"/>
 			<input name="add-rating" value="4" type="radio" class="star"/> 
 			<input name="add-rating" value="5" type="radio" class="star"/>
 		</div>
-		<br><br>
-		<div class="col-md-3 col-md-offset-5">
+		
+		<div class="col-md-2">
 			<button data-beerslug="{{ beer.slug }}" data-user="bob" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
 		</div>
-		<div class="col-md-3">
+		<div class="col-md-2">
 			<button id="rate-btn-cancel" class="btn-sm btn-primary">Cancel</button>
 		</div>	
 	</div>

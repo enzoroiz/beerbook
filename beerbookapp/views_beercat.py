@@ -4,6 +4,7 @@ from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse, HttpResponseRedirect
 from beerbookapp.models import BeerType, Beer, Rating
+from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db import connection
 #from beerbookapp.forms import BeerCatSearch
@@ -12,21 +13,22 @@ from django.db import connection
 # view for adding rating to beer
 def add_rating(request):
 
-    print "in add rating"
-    beerslug = None
-    user = None
+    beer_name_slug = None
+    username = None
     rating = None
     review = None
 
     if request.method == 'GET':
-        beer_slug = request.GET['beer_slug']
-        #user = request.GET['user']
-        #rating = request.GET['rating']
+        beer_name_slug = request.GET['beer_slug']
+        this_beer = Beer.objects.get(slug=beer_name_slug)
+        username = request.GET['username']
+        this_user = User.objects.get(username=username)
+        if not Rating.objects.filter(owner=this_user, rated_beer=this_beer).exists():
+            print "doesnt exist"  # create and save to db
+        else:
+            print str(Rating.objects.filter(owner=this_user, rated_beer=this_beer))
 
-        print beer_slug
-        #print user
-        #print rating
-
+        # username = request.user.username
 
     response = HttpResponse()
     return response
@@ -43,6 +45,7 @@ def beer(request, beer_name_slug):
 
         rating_list = Rating.objects.filter(rated_beer=this_beer)
         context_dict['rating'] = rate_beers(rating_list)
+        context_dict['rating_list'] = rating_list
 
     except:
         pass

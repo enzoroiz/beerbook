@@ -13,7 +13,7 @@
 
     <title>Beerbook - {% block title %}Base Page{% endblock %}</title>
 
-    <link href="https://bootswatch.com/united/bootstrap.css" rel="stylesheet">
+    <link href="https://bootswatch.com/united/bootstrap.css" rel="stylesheet">    
     <link href="https://bootswatch.com/assets/css/bootswatch.min.css" rel="stylesheet">
     
     <!-- Rating Display -->
@@ -81,14 +81,9 @@
 <!-- MAIN CONTENT -->
 
 <div class="container" id="top">
-    <div class="page-header" id="banner">
-        <div class="row">
-            <div>
+    
                 {% block body_block %}{% endblock %}
-            </div>
-
-        </div>
-    </div>
+       
 </div>
 
 <!-- Bootstrap core JavaScript
