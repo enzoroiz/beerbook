@@ -7,30 +7,44 @@ from beerbookapp.models import BeerType, Beer, Rating
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db import connection
+import json
 #from beerbookapp.forms import BeerCatSearch
 
 
 # view for adding rating to beer
 def add_rating(request):
 
-    beer_name_slug = None
-    username = None
-    rating = None
-    review = None
+    # beer_name_slug = None
+    # username = None
+    # rating = None
+    # review = None
+    ajax_response = "Failure"
 
     if request.method == 'GET':
-        beer_name_slug = request.GET['beer_slug']
-        this_beer = Beer.objects.get(slug=beer_name_slug)
-        username = request.GET['username']
+
+        # print request.GET
+        beer_name_slug = request.GET['beer_slug_val']
+        username = request.GET['username_val']
+        rating = request.GET['rating_val']
+        review = request.GET['review_val']
+
+        # print beer_name_slug
+        # print username
+        # print review
+        # print rating
         this_user = User.objects.get(username=username)
+        this_beer = Beer.objects.get(slug=beer_name_slug)
+
         if not Rating.objects.filter(owner=this_user, rated_beer=this_beer).exists():
-            print "doesnt exist"  # create and save to db
-        else:
-            print str(Rating.objects.filter(owner=this_user, rated_beer=this_beer))
+            this_rating = Rating.objects.create(owner=this_user, rated_beer=this_beer)
+            this_rating.rating = rating
+            this_rating.review = review
+            this_rating.save()
+            ajax_response = "Success"
 
         # username = request.user.username
 
-    response = HttpResponse()
+    response = HttpResponse(ajax_response)
     return response
 
 
@@ -43,7 +57,7 @@ def beer(request, beer_name_slug):
         this_beer = Beer.objects.get(slug=beer_name_slug)
         context_dict['beer'] = this_beer
 
-        rating_list = Rating.objects.filter(rated_beer=this_beer)
+        rating_list = Rating.objects.filter(rated_beer=this_beer).order_by('-date')[:4]
         context_dict['rating'] = rate_beers(rating_list)
         context_dict['rating_list'] = rating_list
 
@@ -76,7 +90,7 @@ def beer_catalogue(request):
 
         cursor = connection.cursor()
         cursor.execute("""
-                        select B.slug, B.name, T.name, AVG(R.rating)
+                        select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
                         from beerbookapp_Beer B
                         left outer join
                         beerbookapp_Rating R

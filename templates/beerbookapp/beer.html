@@ -5,6 +5,7 @@
 
 {% block body_block %}
 
+
 	{% if beer %}
 	
 		<div class="page-header"><h1><p>{{ beer.name }}</p></h1></div>
@@ -64,14 +65,14 @@
 					<div class="panel-heading">
 						<h3 class="panel-title">Reviews</h3>
 					</div>					
-					<div class="list-group">
+					<div id="rev-list" class="list-group">
 						{% if rating_list %}
 							{% for this_rating in rating_list %}
 								
 									{% if this_rating.review != null %}									
 										<div class="list-group-item">
 											<h4 class="list-group-item-heading">"{{ this_rating.review }}" <br>- {{ this_rating.rating}}/5</h4>
-											<p align="right" class="list-group-item-text">- {{ this_rating.owner }}</p>
+											<p align="right" class="list-group-item-text">- {{ this_rating.owner }} - {{ this_rating.date|date:"d M Y" }}</p>
 										</div>
 									
 									
@@ -79,7 +80,7 @@
 								
 							{% endfor %}
 						{% else %}
-							<center><strong>This beer has not been reviewed yet</strong></center>
+							<div id="no-rating"><center><strong>This beer has not been reviewed yet</strong></center></div>
 						{% endif %}
 					</div>
 					
@@ -117,3 +118,8 @@
 	{% endif %}
 	
 {% endblock %}	
+
+
+
+
+

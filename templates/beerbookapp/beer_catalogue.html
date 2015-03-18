@@ -40,6 +40,8 @@
 								</div>										
 							</div>
 							
+							{% comment %} <!------------------------------------comment START -->
+							
 							
 							<div class="form-group">
 								<div class="col-lg-3">Price</div>	
@@ -56,6 +58,7 @@
 									<input class="form-control input-sm" id="id_price_to" name="priceto" type="number" min="0" step="0.01" max="200"/>					
 								</div>			
 							</div>
+							{% endcomment %} <!------------------------------------comment END -->
 							
 							<div class="form-group">
 								<div class="col-lg-4">Rating</div>
@@ -116,11 +119,11 @@
 										{% if beer.3 == null %}
 											<p>Unrated</p>
 										{% else %}
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 1 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 2 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 3 %}checked="checked"{% endif %}/>
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 4 %}checked="checked"{% endif %}/> 
-										<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 5 %}checked="checked"{% endif %}/> 						   
+										<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 1 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 2 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 3 %}checked="checked"{% endif %}/>
+										<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 4 %}checked="checked"{% endif %}/> 
+										<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 5 %}checked="checked"{% endif %}/> 						   
 										{% endif %}
 									</div>
 									
@@ -128,9 +131,7 @@
 							</a>
 							
 							{% comment %} <!------------------------------------comment START -->
-							{% for this_test in test %}
-							{{ this_test.name }} {{this_test.1}}<br>
-							{% endfor %}	
+							
 							{% endcomment %} <!------------------------------------comment END -->
 						{% endfor %}
 					{% else %}

@@ -2,6 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from django_countries.fields import CountryField
 from django.template.defaultfilters import slugify
+from datetime import datetime
 
 # Create your models here.
 
@@ -127,6 +128,7 @@ class PubStockItem(models.Model):
 class Rating(models.Model):
     rating = models.IntegerField(default=0)
     review = models.TextField()
+    date = models.DateField(default=datetime.now)
 
     # relationships
     owner = models.ForeignKey(User)

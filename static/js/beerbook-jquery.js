@@ -1,4 +1,7 @@
 $(document).ready( function() {
+	
+
+
 
     $("#rate-btn").click( function(event) {
         $( "#rate-popup" ).dialog({
@@ -25,19 +28,41 @@ $(document).ready( function() {
     });
     
     $("#rate-btn-add").click( function(event) {
-		
+			
 		var beerslug;
 		var user;
-		var rating;	
+		var rating;
+		var review;
 		
 		beerslug = $(this).attr("data-beerslug");
 		user = $(this).attr("data-user");
 		rating = $("input[name='add-rating']:checked").val();
+		review = $("textarea[name='rate-text']").val();
 		
-		$.get('/beerbook/add_rating/', {beer_slug: beerslug, username: user, rating_val: rating});		
+		$.get('/beerbook/add_rating/', {beer_slug_val: beerslug, username_val: user, rating_val: rating, review_val: review},
+										function(data){
+																		
+											$( "#no-rating" ).remove();											
+											$( "#rev-list" ).prepend( "<div class=\"list-group-item\">" +
+																		"<h4 class=\"list-group-item-heading\">\"" +
+																		review +
+																		"\"<br>- " + 
+																		rating +
+																		"/5</h4>" +
+																		"<p align=\"right\" class=\"list-group-item-text\">-" +
+																		user +
+																		" - " + $.datepicker.formatDate('dd M yy' , new Date()) +
+																		"</p></div>" );
+											$( "#rate-btn" ).hide();
+																		
+											
+											});
+										
+				
 		
 		
-		$( "#rate-popup" ).dialog('close')
+		$( "#rate-popup" ).dialog('close');
+		
 		});
     
     

@@ -57,7 +57,7 @@ def populate():
     producer = add_beer_producer("Diageo")
     desc = "This beer is from Dublin, Ireland. It has long been a drink of the stereotypical Irish person"
     # name, beer_type, producer, description, introduced, country
-    beer = add_beer("Guiness", beer_type, producer, desc, date_me("1759"), 'IE')
+    beer = add_beer("Guinness", beer_type, producer, desc, date_me("1759"), 'IE')
     # stocked at:
     pub = add_pub("The Ben Navis", location, "Glasgow", pub_desc, date_me("1998"))
     # price, stocked_item, stocked_at
