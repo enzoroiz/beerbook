@@ -53,15 +53,53 @@ def populate():
 
     # beers and pub stock ****************************************************************************************
 
-    beer_type = add_beer_type("Dry Stout")
+
+    beer_type = add_beer_type("Pale lager")
+    producer = add_beer_producer("Heineken International")
+    desc = "Heineken Lager Beer was first brewed by Gerard Adriaan Heineken in 1873." \
+           " The beer is made of purified water, malted barley, hops, and yeast." \
+           " In 1886 H. Elion finished the development of the Heineken A-yeast," \
+           " which is still used in the brewing process today."
+    add_beer("Heineken", beer_type, producer, desc, date_me("1873"), 'NL')
+
+
+    producer = add_beer_producer("Wellpark Brewery")
+    desc = "The lager was once famous for the design of its cans," \
+           " which featured photos of various female models printed onto the side - known affectionately as" \
+           " \"The Lager Lovelies\". This feature was used by Tennent's up until the final campaign in 1989." \
+           " Today, authentic original Lager Lovely cans are highly sought after among collectors." \
+           " The can design is now a plain silver colour, with the company's trademark large red \"T\"" \
+           " featuring prominently."
+    add_beer("Tennent's Lager", beer_type, producer, desc, date_me("1885"), 'GB')
+
+
+    producer = add_beer_producer("Browary Tyskie Górny Śląsk SA")
+    desc = "Tyskie is one of the best selling brands of beer in Poland, with around 18% of the Polish market." \
+           "Tyskie also has a world distribution. The main brands are Tyskie Gronie, a 5.6% pale lager," \
+           " and Tyskie Książęce, a 5.7% pale lager."
+    add_beer("Tyskie", beer_type, producer, desc, date_me("1629"), 'PL')
+
+
+    producer = add_beer_producer("Anheuser Busch InBev")
+    desc = "Brahma is a Brazilian beer, originally made by the Companhia Cervejaria Brahma," \
+           " which was founded in 1888. The brewery is currently the fifth largest in the world." \
+           " The brands are now owned by Anheuser-Busch InBev. Brahma produced their national Malzbier in 1914." \
+           " After that the company began expanding internationally. The company bought the license" \
+           " for distribution of the Germania brand, which later was known as Guanabara," \
+           " and was one of the earliest of the Brazilian beer brands. Brahma introduced the new bottled draft" \
+           " Brahma Chopp in 1934, and it became a Brazilian bestseller."
+    add_beer("Brahma Chopp", beer_type, producer, desc, date_me("1934"), 'BR')
+
+    beer_type = add_beer_type("Stout Ale")
     producer = add_beer_producer("Diageo")
-    desc = "This beer is from Dublin, Ireland. It has long been a drink of the stereotypical Irish person"
-    # name, beer_type, producer, description, introduced, country
-    beer = add_beer("Guinness", beer_type, producer, desc, date_me("1759"), 'IE')
-    # stocked at:
-    pub = add_pub("The Ben Navis", location, "Glasgow", pub_desc, date_me("1998"))
-    # price, stocked_item, stocked_at
-    add_pub_stock_item(5.99, beer, pub)
+    desc = "Available in cans, kegs and bottles with nitrogen and carbon dioxide. Pasteurised." \
+           " Usually called Draught; sometimes called Cold or Extra Cold - same beer, but served colder." \
+           "Launched in 1961. Ingredients: Pale ale malt, about 25 to 30% flaked barley, and about 10% " \
+           "roasted barley, with no other grains or sugars; several hop varieties, mainly Goldings" \
+           " (pellets and isomerized extract); a flocculent head-forming ale yeast."
+    add_beer("Guinness Draught", beer_type, producer, desc, date_me("1961"), 'IE')
+
+
 
     beer_type = add_beer_type("American lager")
     producer = add_beer_producer("Anheuser_busch InBev")
@@ -96,6 +134,21 @@ def populate():
             on and in every bottle. """
     # name, beer_type, producer, description, introduced, country
     add_beer("Stella Artois", beer_type, producer, desc, date_me("1926"), 'BE')
+
+
+    beer_type = add_beer_type("Dry Stout")
+    producer = add_beer_producer("Diageo")
+    desc = "This beer is from Dublin, Ireland. It has long been a drink of the stereotypical Irish person"
+    # name, beer_type, producer, description, introduced, country
+    beer = add_beer("Guinness", beer_type, producer, desc, date_me("1759"), 'IE')
+    # stocked at:
+    pub = add_pub("The Ben Navis", location, "Glasgow", pub_desc, date_me("1998"))
+    # price, stocked_item, stocked_at
+    add_pub_stock_item(5.99, beer, pub)
+
+
+
+
     # stocked at:
     # price, stocked_item, stocked_at
 
@@ -116,10 +169,10 @@ def populate():
     desc = "All invited to my place for yet another great party!!!"
     location = add_location(city, "George's Party Mansion", 78.864, -9.284, "GB")
     # title, event_datetime, description, owner, location
-    add_event("Party at Geprge's", datetime_me("12/11/2015 18:12"), desc, owner, location)
+    add_event("Party at George's", datetime_me("12/11/2015 18:12"), desc, owner, location)
 
     # ratings *****************************************************************************************
-    beer = get_beer("Guiness")
+    #beer = get_beer("Guiness")
 
     owner = add_user("george", "George", "Partyanimal", "george")
     review = "This beer tasted really great! Especially for the price."
@@ -189,7 +242,7 @@ def add_beer(name, beer_type, producer, description, introduced, country):
 
 
 def get_beer(name):
-    c = Beer.objects.get_or_create(name=name)[0]
+    c = Beer.objects.filter(name=name)[0]
     return c
 
 
