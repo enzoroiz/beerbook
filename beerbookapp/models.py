@@ -1,12 +1,13 @@
-from django.db import models
-from django.contrib.auth.models import User
-from django_countries.fields import CountryField
-from django.template.defaultfilters import slugify
 from datetime import datetime
+import os
+
+from django.contrib.auth.models import User
+from django.db import models
+from django.template.defaultfilters import slugify
+from django_countries.fields import CountryField
+
 
 # Create your models here.
-
-
 class City(models.Model):
     name = models.CharField(max_length=128, unique=True)
 
@@ -27,17 +28,24 @@ class BeerProducer(models.Model):
     def __unicode__(self):
         return self.name
 
+# Change name of the uploaded file
+def file_rename(instance, filename):
+    name, extension = os.path.splitext(filename)
+    upload_path = 'profile_images'
+    filename = "%s_%s%s" % (instance.user.pk, instance.user.username, extension)
+    return os.path.join(upload_path, filename)
 
-class UserProfile(models.Model):
-
-    website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to='profile_images', blank=True)
-
-    # relationships
+class UserProfile(models.Model):   
+    def __unicode__(self):
+        return self.user.username    
+    
+    # This line is required. Links UserProfile to a User model instance.
     user = models.OneToOneField(User)
 
-    def __unicode__(self):
-        return self.user.username
+    # The additional attributes we wish to include.
+    website = models.URLField(blank=True)
+    picture = models.ImageField(upload_to=file_rename, blank=True,default='profile_images/default.png')
+
 
 
 class Beer(models.Model):
