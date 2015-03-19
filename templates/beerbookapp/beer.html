@@ -25,19 +25,22 @@
 						{% if rating == null %}
 							<center><br><p>Unrated</p></center>
 						{% else %}
-							<center>
+							<center><p class="bg-white">
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 1 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 2 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 3 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 4 %}checked="checked"{% endif %}/> 
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 5 %}checked="checked"{% endif %}/>
-							</center>
+							</p></center>
 						{% endif %}
 						<br>						
 					</div>
 					<div class="col-md-2"></div>
-					<div class="col-md-12">
-						<center><button id="rate-btn" class="btn-sm btn-primary">Rate It!</button></center>
+					<div class="col-md-12"> <!----------------------------------------------------------------RATE BUTTON -->
+						
+						{% if user.is_authenticated %}
+							<center><button id="rate-btn" class="btn-sm btn-primary">Rate It!</button></center>
+						{% endif %}
 					</div>						
 					
 				  </div>
@@ -52,11 +55,12 @@
 					<p>Producer: {{ beer.producer }}</p>
 					<p>Country of Origin: {{ beer.country.name }}</p>
 					<p>Introduced: {{ beer.introduced|date:"Y" }}</p>
-					<p>{{ beer.description }}</p>
+					<textarea class="form-control" rows="9" id="textArea">{{ beer.description }}</textarea>
 					
 					
 				  </div>
 				</div>
+				<FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
 			</div>
 			
 			<div class="col-md-4">	<!---------------------------------------------- REVIEWS -->
@@ -85,6 +89,7 @@
 					</div>
 					
 				</div>
+				
 			</div>
 		</div>
 	
@@ -104,7 +109,7 @@
 		</div>
 		
 		<div class="col-md-2">
-			<button data-beerslug="{{ beer.slug }}" data-user="bob" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
+			<button data-beerslug="{{ beer.slug }}" data-user="{{ user.get_username }}" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
 		</div>
 		<div class="col-md-2">
 			<button id="rate-btn-cancel" class="btn-sm btn-primary">Cancel</button>

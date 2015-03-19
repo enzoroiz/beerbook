@@ -24,7 +24,7 @@ def add_rating(request):
 
         # print request.GET
         beer_name_slug = request.GET['beer_slug_val']
-        username = request.GET['username_val']
+        username = request.user.username
         rating = request.GET['rating_val']
         review = request.GET['review_val']
 

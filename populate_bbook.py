@@ -6,6 +6,7 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'beerbook.settings')
 
 import datetime
 
+
 import django
 django.setup()
 
@@ -14,6 +15,8 @@ from beerbookapp.models import Location, City, Pub, PubStockItem, FriendListItem
 from django_countries import countries
 from django.contrib.auth.models import User
 from django.utils import timezone
+
+
 
 
 def populate():
@@ -53,6 +56,7 @@ def populate():
 
     # beers and pub stock ****************************************************************************************
 
+    b_image = None
 
     beer_type = add_beer_type("Pale lager")
     producer = add_beer_producer("Heineken International")
@@ -60,7 +64,7 @@ def populate():
            " The beer is made of purified water, malted barley, hops, and yeast." \
            " In 1886 H. Elion finished the development of the Heineken A-yeast," \
            " which is still used in the brewing process today."
-    add_beer("Heineken", beer_type, producer, desc, date_me("1873"), 'NL')
+    add_beer("Heineken", beer_type, producer, desc, date_me("1873"), 'NL', b_image)
 
 
     producer = add_beer_producer("Wellpark Brewery")
@@ -70,14 +74,14 @@ def populate():
            " Today, authentic original Lager Lovely cans are highly sought after among collectors." \
            " The can design is now a plain silver colour, with the company's trademark large red \"T\"" \
            " featuring prominently."
-    add_beer("Tennent's Lager", beer_type, producer, desc, date_me("1885"), 'GB')
+    add_beer("Tennent's Lager", beer_type, producer, desc, date_me("1885"), 'GB', b_image)
 
 
     producer = add_beer_producer("Browary Tyskie Górny Śląsk SA")
     desc = "Tyskie is one of the best selling brands of beer in Poland, with around 18% of the Polish market." \
            "Tyskie also has a world distribution. The main brands are Tyskie Gronie, a 5.6% pale lager," \
            " and Tyskie Książęce, a 5.7% pale lager."
-    add_beer("Tyskie", beer_type, producer, desc, date_me("1629"), 'PL')
+    add_beer("Tyskie", beer_type, producer, desc, date_me("1629"), 'PL', b_image)
 
 
     producer = add_beer_producer("Anheuser Busch InBev")
@@ -88,7 +92,7 @@ def populate():
            " for distribution of the Germania brand, which later was known as Guanabara," \
            " and was one of the earliest of the Brazilian beer brands. Brahma introduced the new bottled draft" \
            " Brahma Chopp in 1934, and it became a Brazilian bestseller."
-    add_beer("Brahma Chopp", beer_type, producer, desc, date_me("1934"), 'BR')
+    add_beer("Brahma Chopp", beer_type, producer, desc, date_me("1934"), 'BR', b_image)
 
     beer_type = add_beer_type("Stout Ale")
     producer = add_beer_producer("Diageo")
@@ -97,7 +101,7 @@ def populate():
            "Launched in 1961. Ingredients: Pale ale malt, about 25 to 30% flaked barley, and about 10% " \
            "roasted barley, with no other grains or sugars; several hop varieties, mainly Goldings" \
            " (pellets and isomerized extract); a flocculent head-forming ale yeast."
-    add_beer("Guinness Draught", beer_type, producer, desc, date_me("1961"), 'IE')
+    add_beer("Guinness Draught", beer_type, producer, desc, date_me("1961"), 'IE', b_image)
 
 
 
@@ -107,7 +111,7 @@ def populate():
      Budweiser is a medium-bodied, flavorful, crisp American-style lager.
      Brewed with the best barley malt and a blend of premium hop varieties, it is an icon of core American values like optimism and celebration."""
     # name, beer_type, producer, description, introduced, country
-    beer = add_beer("Budweiser", beer_type, producer, desc, date_me("1876"), 'US')
+    beer = add_beer("Budweiser", beer_type, producer, desc, date_me("1876"), 'US', b_image)
     # stocked at:
     pub = add_pub("The Ben Navis", location, "Glasgow", pub_desc, date_me("1998"))
     # price, stocked_item, stocked_at
@@ -116,31 +120,31 @@ def populate():
     beer_type = add_beer_type("Pilsner")
     producer = add_beer_producer("Anheuser_busch InBev")
 
-    desc = """At Stella Artois, we are extremely proud of our Belgian roots.
-            Our story can be seen on every bottle of Stella Artois. If you look closely, hints of our origins are
-            proudly displayed.
-            By 1366 roots of our brewing tradition had been established in the city of Leuven, Belgium– which is also
-            where the original Den Hoorn brewery was founded. Den Hoorn laid the foundation for the quality taste and
-            standard Stella Artois is known for. The symbol of the Den Hoorn Brewery is proudly displayed in Stella
-            Artois' cartouche to this day.
-            Sebastian Artois was admitted to the Leuven Brewer’s Guild as a Brew Master in 1708, and only nine years
-            later purchased the Den Hoorn brewery. In memoriam, you can find his last name on the brewery and every
-            bottle of Stella Artois around the world.
-            The Artois Brewery was so beloved internationally and locally, a special batch was created as a Christmas
-            gift to the people of Leuven. That special batch was the first to officially include "Stella" in its name.
-            "Stella", meaning star in Latin, pays homage to this original occasion, accompanied by a star on every
-            bottle.
-            So next time you see a bottle of Stella Artois, take note of the rich history paired with the rich flavor
-            on and in every bottle. """
+    desc = "At Stella Artois, we are extremely proud of our Belgian roots. Our story can be seen on every" \
+           " bottle of Stella Artois. If you look closely, hints of our origins are proudly displayed. " \
+           "By 1366 roots of our brewing tradition had been established in the city of Leuven," \
+           " Belgium– which is also where the original Den Hoorn brewery was founded. Den Hoorn laid" \
+           " the foundation for the quality taste and standard Stella Artois is known for." \
+           " The symbol of the Den Hoorn Brewery is proudly displayed in Stella Artois' cartouche to this day." \
+           " Sebastian Artois was admitted to the Leuven Brewer’s Guild as a Brew Master in 1708," \
+           " and only nine years later purchased the Den Hoorn brewery." \
+           " In memoriam, you can find his last name on the brewery and every bottle of Stella Artois " \
+           " around the world. The Artois Brewery was so beloved internationally and locally," \
+           " a special batch was created as a Christmas gift to the people of Leuven." \
+           " That special batch was the first to officially include \"Stella\" in its name. \"Stella\"," \
+           " meaning star in Latin, pays homage to this original occasion, accompanied by a star on every bottle. " \
+           "So next time you see a bottle of Stella Artois, take note of the rich history paired" \
+           " with the rich flavor on and in every bottle. "
     # name, beer_type, producer, description, introduced, country
-    add_beer("Stella Artois", beer_type, producer, desc, date_me("1926"), 'BE')
+    add_beer("Stella Artois", beer_type, producer, desc, date_me("1926"), 'BE', b_image)
 
 
     beer_type = add_beer_type("Dry Stout")
     producer = add_beer_producer("Diageo")
+    #b_image = 'beer_images/guiness.jpg'
     desc = "This beer is from Dublin, Ireland. It has long been a drink of the stereotypical Irish person"
     # name, beer_type, producer, description, introduced, country
-    beer = add_beer("Guinness", beer_type, producer, desc, date_me("1759"), 'IE')
+    beer = add_beer("Guinness", beer_type, producer, desc, date_me("1759"), 'IE', b_image)
     # stocked at:
     pub = add_pub("The Ben Navis", location, "Glasgow", pub_desc, date_me("1998"))
     # price, stocked_item, stocked_at
@@ -231,14 +235,31 @@ def add_beer_type(name):
     return c
 
 
-def add_beer(name, beer_type, producer, description, introduced, country):
+def add_beer(name, beer_type, producer, description, introduced, country, image):
     c = Beer.objects.get_or_create(name=name,
                                    type=beer_type,
                                    producer=producer,
                                    description=description,
                                    introduced=introduced,
-                                   country=country)[0]
+                                   country=country,
+                                   )[0]
+    # if image:
+    #     c.image.save(image)
+
+
     return c
+
+
+# def add_beer(name, beer_type, producer, description, introduced, country):
+#     c = Beer.objects.get_or_create(name=name,
+#                                    type=beer_type,
+#                                    producer=producer,
+#                                    description=description,
+#                                    introduced=introduced,
+#                                    country=country)[0]
+#     return c
+
+
 
 
 def get_beer(name):

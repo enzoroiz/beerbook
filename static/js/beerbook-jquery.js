@@ -39,7 +39,7 @@ $(document).ready( function() {
 		rating = $("input[name='add-rating']:checked").val();
 		review = $("textarea[name='rate-text']").val();
 		
-		$.get('/beerbook/add_rating/', {beer_slug_val: beerslug, username_val: user, rating_val: rating, review_val: review},
+		$.get('/beerbook/add_rating/', {beer_slug_val: beerslug, rating_val: rating, review_val: review},
 										function(data){
 																		
 											$( "#no-rating" ).remove();											
