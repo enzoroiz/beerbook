@@ -40,6 +40,7 @@ INSTALLED_APPS = (
     'django_countries',
     'easy_maps',
     'registration',
+    'bootstrap_toolkit',
     'beerbookapp',
 )
 

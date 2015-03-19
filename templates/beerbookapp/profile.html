@@ -12,7 +12,7 @@
 		<img src="{{ MEDIA_URL }}{{userprofile.picture }}" width="300" height="300" alt="{{act_user.username}}" />
 		<br/><br/>
 		<div id="edit_profile"></div>
-		<div id="change_password_div">{% include "rango/change_password.html" with form=form %}</div>
+		<div id="change_password_div">{% include "beerbookapp/change_password.html" with form=form %}</div>
 	{% else %}
 		<div class="page-header">
 			<h1 id="username" data-username="{{act_user.username}}">{{act_user.username}} Profile</h1>
@@ -32,8 +32,11 @@
 	{% endif %}
 	{% if messages %}
 		{% for message in messages%}
-		<center><div class="alert alert-success" style="width: 500px">
-			<a href="#" class="close" data-dismiss="alert">&times;</a> <strong>Success!</strong>
+		<center><div class="alert alert-success alert-dismissible" style="width: 300px">
+			<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+  				<span aria-hidden="true">&times;</span>
+			</button> 
+			<strong>Success!</strong>
 			{{ message }}
 		</div></center>
 		{% endfor %}
