@@ -170,3 +170,29 @@
     opacity: .5;
     cursor: default;
 }
+
+/** CUSTON **/
+
+#slide{
+	width: 600px;
+    height:400px;
+    background: #fff;
+    padding:5px;
+}
+
+#image{
+	width:200px;
+	padding-top: 30px;
+	padding-bottom: 30px;
+	max-height: 340px;
+	float:left;
+}
+
+#beer_rateing{
+	width:200px;
+} 
+
+#info_carousel{
+    width:300px;
+	float:right;
+}
