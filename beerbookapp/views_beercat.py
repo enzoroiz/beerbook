@@ -8,16 +8,12 @@ from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db import connection
 import json
-#from beerbookapp.forms import BeerCatSearch
+# from beerbookapp.forms import BeerCatSearch
 
 
 # view for adding rating to beer
 def add_rating(request):
 
-    # beer_name_slug = None
-    # username = None
-    # rating = None
-    # review = None
     ajax_response = "Failure"
 
     if request.method == 'GET':
@@ -28,10 +24,6 @@ def add_rating(request):
         rating = request.GET['rating_val']
         review = request.GET['review_val']
 
-        # print beer_name_slug
-        # print username
-        # print review
-        # print rating
         this_user = User.objects.get(username=username)
         this_beer = Beer.objects.get(slug=beer_name_slug)
 
@@ -40,9 +32,7 @@ def add_rating(request):
             this_rating.rating = rating
             this_rating.review = review
             this_rating.save()
-            ajax_response = "Success"
-
-        # username = request.user.username
+            ajax_response = "Success"  # TODO
 
     response = HttpResponse(ajax_response)
     return response
@@ -50,28 +40,33 @@ def add_rating(request):
 
 # view for individual beers
 def beer(request, beer_name_slug):
-
     context_dict = {}
     rated = False
 
     try:
         this_beer = Beer.objects.get(slug=beer_name_slug)
-        
+
+        query_string = """select P.name, L.latitude, L.longitude
+                        from beerbookapp_Pub P
+                        join beerbookapp_PubStockItem S
+                        on S.stocked_at_id=P.id
+                        join beerbookapp_Location L
+                        on P.location_id=L.id
+                        join beerbookapp_Beer B
+                        on S.stocked_item_id=B.id
+                        where B.name='""" + this_beer.name + "'"
+
         cursor = connection.cursor()
-        cursor.execute(""" 
-        select P.name, L.latitude, L.longitude
-            from beerbookapp_Pub P 
-                join beerbookapp_PubStockItem S 
-                    on S.stocked_at_id=P.id
-                join beerbookapp_Location L
-                    on P.location_id=L.id
-                join beerbookapp_Beer B
-                    on S.stocked_item_id=B.id
-                    where B.name='""" + this_beer.name + "'")
-        locations = cursor.fetchall()
+
+        try:
+            cursor.execute(query_string)
+            locations = cursor.fetchall()
+        finally:
+            cursor.close()
+
 
         rating_list = Rating.objects.filter(rated_beer=this_beer).order_by('-date')
-        
+
         context_dict['beer'] = this_beer
         context_dict['rating'] = rate_beers(rating_list)
         context_dict['rating_list'] = rating_list
@@ -92,7 +87,6 @@ def beer(request, beer_name_slug):
 
 # view for beer catalogue
 def beer_catalogue(request):
-
     context_dict = {}
 
     if request.method == 'POST':
@@ -102,24 +96,11 @@ def beer_catalogue(request):
         search_beer_rating_max = request.POST['ratingmax']
         search_beer_rating_min = request.POST['ratingmin']
 
-        # convert ' in strings to SQL escape ones
-        search_beer_name = search_beer_name.replace("'", "''")
-
-
-        # print "IN POST"
         # print request.POST
-        # print ""
 
         cursor = connection.cursor()
-        query_string = search_query_builder(search_beer_name,
-                                            search_beer_type,
-                                            search_beer_rating_min,
-                                            search_beer_rating_max)
-
-
-
-        # print "\n"
-        # print query_string
+        query_string = search_query_builder(search_beer_name, search_beer_type,
+                                            search_beer_rating_min, search_beer_rating_max)
 
         try:
             cursor.execute(query_string)
@@ -130,27 +111,14 @@ def beer_catalogue(request):
         # print "\n"
         # print query_result
 
-
         beer_types = BeerType.objects.all()
         context_dict['beer_types'] = beer_types
         context_dict['beer_list'] = query_result
 
-        # # print request
-        # if 'beername' in request.POST:
-        #
-        #     beer_name = request.POST['beername']
-        #
-        #     try:
-        #         beer_dict = Beer.objects.get(name=beer_name)
-        #         context_dict['search_beer'] = beer_dict
-        #     except:
-        #         pass
     else:
         beer_types = BeerType.objects.all()
 
-        print "IN ELSE"
-        cursor = connection.cursor()
-        cursor.execute("""
+        query_string = ("""
                         select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
                         from beerbookapp_Beer B
                         left outer join
@@ -161,7 +129,14 @@ def beer_catalogue(request):
                         on B.type_id = T.id
                         group by B.id
                         """)
-        query_result = cursor.fetchall()
+
+        cursor = connection.cursor()
+
+        try:
+            cursor.execute(query_string)
+            query_result = cursor.fetchall()
+        finally:
+            cursor.close()
 
         context_dict['beer_list'] = query_result
         context_dict['beer_types'] = beer_types
@@ -173,19 +148,24 @@ def beer_catalogue(request):
 # helper methods ************************************************************************************
 
 
+# returns beer avg rating
 def rate_beers(rating_list):
     if rating_list:
-            beer_ratings_number = 0
-            rating_total = 0
-            for rating in rating_list:
-                beer_ratings_number += 1
-                rating_total += rating.rating
-            return rating_total / beer_ratings_number
+        beer_ratings_number = 0
+        rating_total = 0
+        for rating in rating_list:
+            beer_ratings_number += 1
+            rating_total += rating.rating
+        return rating_total / beer_ratings_number
 
     return None
 
 
 def search_query_builder(beer_name, type_name, rating_min, rating_max):
+
+    # convert ' in strings to SQL escape ones
+    beer_name = beer_name.replace("'", "''")
+
     query_string = """
                         select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
                         from beerbookapp_Beer B
@@ -196,11 +176,21 @@ def search_query_builder(beer_name, type_name, rating_min, rating_max):
                         beerbookapp_BeerType T
                         on B.type_id = T.id """
 
+    # check for where clause
+
     if beer_name:
-        query_string += """where LOWER(B.name) LIKE '%""" + str(beer_name).lower() + "%' "
+        if type_name == 'none':
+            query_string += "where LOWER(B.name) LIKE '%" + str(beer_name).lower() + "%' "
+        else:
+            query_string += "where "
+            query_string += "LOWER(B.name) LIKE '%" + str(beer_name).lower() + "%' "
+            query_string += " AND T.name == '" + str(type_name) + "' "
+    elif type_name != 'none':
+        query_string += "where T.name == '" + str(type_name) + "' "
 
     query_string += "group by B.id "
 
+    # check for having clause
     if int(rating_min) == 0 and int(rating_max) == 0:
         pass
     elif int(rating_min) != 0 and int(rating_max) != 0:
@@ -220,11 +210,9 @@ def search_query_builder(beer_name, type_name, rating_min, rating_max):
             query_string += " ROUND(AVG(R.rating), 0) >= "
             query_string += str(rating_min)
 
-
     return query_string
 
 
-
-# used to check how the heck django names columns
-        # for field in <MODELNAME>._meta.fields:
-        #     print field.get_attname_column()
+    # used to check how the heck django names columns
+    # for field in <MODELNAME>._meta.fields:
+    #     print field.get_attname_column()

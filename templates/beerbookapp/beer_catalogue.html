@@ -25,7 +25,7 @@
 							<label for="id_type" class="col-lg-3 control-label">Type:</label>
 							<div class="col-lg-9">
 								<select id="id_type" class="form-control input-sm" name="beertype">
-									<option selected ="selected" value="0">(Not Selected)</option>
+									<option selected ="selected" value="none">(Not Selected)</option>
 									{% if beer_types %}
 										{% for beertype in beer_types %}
 										<option value="{{ beertype.name }}">{{ beertype.name }}</option>
@@ -132,7 +132,7 @@
 					{% endcomment %} <!--  ******************************************** comment END -->
 				{% endfor %}
 			{% else %}
-				<strong>No beers found</strong>
+				<strong>No beers matching the criteria found</strong>
 			{% endif %}				
 		</div>		
 	</div>
