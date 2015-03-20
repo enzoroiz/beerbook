@@ -7,11 +7,12 @@ from beerbookapp.models import BeerType, Beer, Rating
 from django.contrib.auth.models import User
 from django.db.models import Avg
 from django.db import connection
-import json
+# import json
 # from beerbookapp.forms import BeerCatSearch
 
 
 # view for adding rating to beer
+@login_required
 def add_rating(request):
 
     ajax_response = "Failure"
@@ -72,6 +73,7 @@ def beer(request, beer_name_slug):
         context_dict['rating_list'] = rating_list
         context_dict['locations'] = locations
 
+        # checks if user rated this beer already
         for r in rating_list:
             if r.owner == request.user:
                 rated = True

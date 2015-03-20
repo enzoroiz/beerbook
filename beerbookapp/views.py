@@ -12,7 +12,27 @@ from beerbookapp.models import Pub, Beer, PubStockItem, UserProfile
 
 # Create your views here.
 def index(request):
-    response = render(request, 'beerbookapp/index.html')
+
+    context_dict = {}
+
+    sql_query = "select B.slug, B.name , B.image, substr(B.description, 1, 100), ROUND(AVG(R.rating), 0) " \
+                "from beerbookapp_Beer B " \
+                " left outer join beerbookapp_Rating R on B.id = R.rated_beer_id" \
+                " group by B.id" \
+                " order by ROUND(AVG(R.rating), 0) desc"
+
+    cursor = connection.cursor()
+
+    try:
+        cursor.execute(sql_query)
+        context_dict['top_beers'] = cursor.fetchall()
+        print context_dict
+    finally:
+        cursor.close()
+
+
+
+    response = render(request, 'beerbookapp/index.html', context_dict)
     return response
 
 
@@ -22,21 +42,6 @@ def user_profile(request):
 
 
 def event_catalogue(request):
-
-    # cursor = connection.cursor()
-    # beer_name = "Guiness"
-    # cursor.execute(""" select P.name
-    #                 from beerbookapp_Pub P
-    #                 join
-    #                 beerbookapp_PubStockItem S
-    #                 on S.stocked_at_id=P.id
-    #                 join
-    #                 beerbookapp_Beer B
-    #                 on S.stocked_item_id=B.id
-    #                 where B.name='""" + beer_name + "'")
-    # query_result = cursor.fetchall()
-    # print query_result
-
 
     response = render(request, 'beerbookapp/event_catalogue.html')
     return response
