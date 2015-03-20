@@ -56,11 +56,26 @@ def beer(request, beer_name_slug):
 
     try:
         this_beer = Beer.objects.get(slug=beer_name_slug)
-        context_dict['beer'] = this_beer
+        
+        cursor = connection.cursor()
+        cursor.execute(""" 
+        select P.name, L.latitude, L.longitude
+            from beerbookapp_Pub P 
+                join beerbookapp_PubStockItem S 
+                    on S.stocked_at_id=P.id
+                join beerbookapp_Location L
+                    on P.location_id=L.id
+                join beerbookapp_Beer B
+                    on S.stocked_item_id=B.id
+                    where B.name='""" + this_beer.name + "'")
+        locations = cursor.fetchall()
 
         rating_list = Rating.objects.filter(rated_beer=this_beer).order_by('-date')
+        
+        context_dict['beer'] = this_beer
         context_dict['rating'] = rate_beers(rating_list)
         context_dict['rating_list'] = rating_list
+        context_dict['locations'] = locations
 
         for r in rating_list:
             if r.owner == request.user:

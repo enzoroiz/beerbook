@@ -106,17 +106,12 @@ TEMPLATE_DIRS = [
     TEMPLATE_PATH,
     ]
 
-#Authentication
-PASSWORD_HASHERS = (
-    'django.contrib.auth.hashers.BCryptSHA256PasswordHasher',
-    'django.contrib.auth.hashers.BCryptPasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
-    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
-)
-
 REGISTRATION_OPEN = True        # If True, users can register
 ACCOUNT_ACTIVATION_DAYS = 7     # One-week activation window; you may, of course, use a different value.
 REGISTRATION_AUTO_LOGIN = True  # If True, the user will be automatically logged in.
 LOGIN_REDIRECT_URL = '/beerbook/'  # The page you want users to arrive at after they successful log in
 LOGIN_URL = '/accounts/login/'  # The page users are directed to if they are not logged in,
                                 # and are trying to access pages requiring authentication
+                                
+#Maps center
+EASY_MAPS_CENTER = (55.8554602, -4.2324586)
