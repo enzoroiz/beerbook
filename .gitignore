@@ -58,3 +58,4 @@ target/
 
 #KHORMADD sqlite
 db.sqlite3
+media/beer_images/
