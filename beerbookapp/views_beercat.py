@@ -52,17 +52,24 @@ def add_rating(request):
 def beer(request, beer_name_slug):
 
     context_dict = {}
+    rated = False
 
     try:
         this_beer = Beer.objects.get(slug=beer_name_slug)
         context_dict['beer'] = this_beer
 
-        rating_list = Rating.objects.filter(rated_beer=this_beer).order_by('-date')[:4]
+        rating_list = Rating.objects.filter(rated_beer=this_beer).order_by('-date')
         context_dict['rating'] = rate_beers(rating_list)
         context_dict['rating_list'] = rating_list
 
+        for r in rating_list:
+            if r.owner == request.user:
+                rated = True
+                break
     except:
         pass
+
+    context_dict['rated'] = rated
 
     response = render(request, 'beerbookapp/beer.html', context_dict)
     return response
@@ -89,39 +96,10 @@ def beer_catalogue(request):
         # print ""
 
         cursor = connection.cursor()
-        query_string = """
-                        select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
-                        from beerbookapp_Beer B
-                        left outer join
-                        beerbookapp_Rating R
-                        on B.id = R.rated_beer_id
-                        left outer join
-                        beerbookapp_BeerType T
-                        on B.type_id = T.id """
-
-        if search_beer_name:
-            query_string += """where LOWER(B.name) LIKE '%""" + str(search_beer_name).lower() + "%' "
-
-        query_string += "group by B.id "
-
-        if int(search_beer_rating_min) == 0 and int(search_beer_rating_max) == 0:
-            pass
-        elif int(search_beer_rating_min) != 0 and int(search_beer_rating_max) != 0:
-            query_string += " having "
-            query_string += " ROUND(AVG(R.rating), 0) >= "
-            query_string += str(search_beer_rating_min)
-            query_string += " AND ROUND(AVG(R.rating), 0) <= "
-            query_string += str(search_beer_rating_max)
-        else:
-            if int(search_beer_rating_min) == 0:
-                query_string += " having "
-                query_string += " ROUND(AVG(R.rating), 0) <= "
-                query_string += str(search_beer_rating_max)
-                query_string += " OR ROUND(AVG(R.rating), 0) IS NULL"
-            elif int(search_beer_rating_max) == 0:
-                query_string += " having "
-                query_string += " ROUND(AVG(R.rating), 0) >= "
-                query_string += str(search_beer_rating_min)
+        query_string = search_query_builder(search_beer_name,
+                                            search_beer_type,
+                                            search_beer_rating_min,
+                                            search_beer_rating_max)
 
 
 
@@ -190,6 +168,46 @@ def rate_beers(rating_list):
             return rating_total / beer_ratings_number
 
     return None
+
+
+def search_query_builder(beer_name, type_name, rating_min, rating_max):
+    query_string = """
+                        select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
+                        from beerbookapp_Beer B
+                        left outer join
+                        beerbookapp_Rating R
+                        on B.id = R.rated_beer_id
+                        left outer join
+                        beerbookapp_BeerType T
+                        on B.type_id = T.id """
+
+    if beer_name:
+        query_string += """where LOWER(B.name) LIKE '%""" + str(beer_name).lower() + "%' "
+
+    query_string += "group by B.id "
+
+    if int(rating_min) == 0 and int(rating_max) == 0:
+        pass
+    elif int(rating_min) != 0 and int(rating_max) != 0:
+        query_string += " having "
+        query_string += " ROUND(AVG(R.rating), 0) >= "
+        query_string += str(rating_min)
+        query_string += " AND ROUND(AVG(R.rating), 0) <= "
+        query_string += str(rating_max)
+    else:
+        if int(rating_min) == 0:
+            query_string += " having "
+            query_string += " ROUND(AVG(R.rating), 0) <= "
+            query_string += str(rating_max)
+            query_string += " OR ROUND(AVG(R.rating), 0) IS NULL"
+        elif int(rating_max) == 0:
+            query_string += " having "
+            query_string += " ROUND(AVG(R.rating), 0) >= "
+            query_string += str(rating_min)
+
+
+    return query_string
+
 
 
 # used to check how the heck django names columns

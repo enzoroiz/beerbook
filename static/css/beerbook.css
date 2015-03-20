@@ -10,9 +10,30 @@ background-color: #F5E0FF;
   background-color: #FFFFFF;  
 }
 
-.bg-white {
+.rating-container {
   background-color: #FFFFFF;  
+  margin-left: auto;
+  margin-right: auto;
+  width:110px;
+  text-align: center ;  
 }
+
+.img-rounded {
+  width: 210px;
+  height: 210px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+
+}
+
+.list-group-item .right{
+	text-align: right;
+}
+
+.btn-sm btn-primary .center{
+	float: center;
+	}
 
 /*#F5FBFD  #E6F5FA*/
 

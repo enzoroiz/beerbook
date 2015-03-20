@@ -8,119 +8,162 @@
 
 	{% if beer %}
 	
-		<div class="page-header"><h1><p>{{ beer.name }}</p></h1></div>
+		<div class="page-header"><h1>{{ beer.name }}</h1></div>
 		
-			<div class="col-md-3">	<!---------------------------------------------- IMAGE -->	
-				<div class="panel panel-primary">
-				  <div class="panel-body">
-					<div class="col-md-12"> 
+		<div class="col-md-3">	<!-- ******************************************** IMAGE -->	
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<div class="row"> 
 						{% if beer.image != "" %}
-							<img class="img-rounded" src="/media/{{ beer.image }}" width="100%" alt="No picture found">
+							<img class="img-rounded" src="/media/{{ beer.image }}" alt="No picture found">
 						{% else %}
-							<img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100%" alt="YEH No picture found">
+							<img class="img-rounded" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
 						{% endif %}
+						
 					</div>
-					
-					<div class="col-md-12">						
+					<br><br>
+					<div class="row">						
 						{% if rating == null %}
-							<center><br><p>Unrated</p></center>
+							<div class="rating-container"><p>Unrated</p></div>
 						{% else %}
-							<center><p class="bg-white">
+							<div class="rating-container">
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 1 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 2 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 3 %}checked="checked"{% endif %}/>
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 4 %}checked="checked"{% endif %}/> 
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 5 %}checked="checked"{% endif %}/>
-							</p></center>
+							</div>
 						{% endif %}
 						<br>						
-					</div>
-					<div class="col-md-2"></div>
-					<div class="col-md-12"> <!----------------------------------------------------------------RATE BUTTON -->
-						
-						{% if user.is_authenticated %}
-							<center><button id="rate-btn" class="btn-sm btn-primary">Rate It!</button></center>
-						{% endif %}
-					</div>						
-					
-				  </div>
-				</div>
-			</div>
-			
-			<div class="col-md-5">	<!---------------------------------------------- DATA -->	
-				<div class="panel panel-primary">
-				  <div class="panel-body">
-					
-					<p>Type: {{ beer.type }}</p>										
-					<p>Producer: {{ beer.producer }}</p>
-					<p>Country of Origin: {{ beer.country.name }}</p>
-					<p>Introduced: {{ beer.introduced|date:"Y" }}</p>
-					<textarea class="form-control" rows="9" id="textArea">{{ beer.description }}</textarea>
-					
-					
-				  </div>
-				</div>
-				<FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
-			</div>
-			
-			<div class="col-md-4">	<!---------------------------------------------- REVIEWS -->
-				
-				<div class="panel panel-primary">
-					<div class="panel-heading">
-						<h3 class="panel-title">Reviews</h3>
 					</div>					
-					<div id="rev-list" class="list-group">
-						{% if rating_list %}
-							{% for this_rating in rating_list %}
-								
-									{% if this_rating.review != null %}									
-										<div class="list-group-item">
-											<h4 class="list-group-item-heading">"{{ this_rating.review }}" <br>- {{ this_rating.rating}}/5</h4>
-											<p align="right" class="list-group-item-text">- {{ this_rating.owner }} - {{ this_rating.date|date:"d M Y" }}</p>
-										</div>
-									
-									
-									{% endif %}
-								
-							{% endfor %}
-						{% else %}
-							<div id="no-rating"><center><strong>This beer has not been reviewed yet</strong></center></div>
-						{% endif %}
-					</div>
 					
+					<div class="row"> <!-- ******************************************** RATE BUTTON -->					
+						{% if user.is_authenticated %}
+							<div style="text-align:center;">
+								{% if rated == True %}
+									<strong >You already rated!</strong>
+								{% else %}
+									<button id="rate-btn" class="btn-sm btn-primary">Rate It!</button>
+								{% endif %}
+							</div>
+						{% endif %}
+					</div>	
+							
 				</div>
-				
+			</div>
+		</div>
+		
+		<div class="col-md-5">	<!-- ******************************************** DATA PANEL -->	
+			<div class="panel panel-primary">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-md-3">
+							<p>Type:</p>
+						</div>
+						<div class="col-md-7">						
+							{{ beer.type }}
+						</div>
+						<button id="btn-map-open" class="btn-sm btn-primary">MAP</button> <!-- **** MAP BUTTON --> 
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<p>Producer:</p>
+						</div>
+						<div class="col-md-7">						
+							{{ beer.producer }}
+						</div>
+					</div>		
+					<div class="row">
+						<div class="col-md-3">
+							<p>Country of Origin:</p>
+						</div>
+						<div class="col-md-7">						
+							{{ beer.country.name }}
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-md-3">
+							<p>Introduced:</p>
+						</div>
+						<div class="col-md-7">					
+							{{ beer.introduced|date:"Y" }}
+						</div>
+					</div>										
+					<div id="beer-desc" class="row">						
+						<div style="height:200px;padding:10px;border:1px solid #ccc;overflow:auto;">{{ beer.description }}</div>						
+					</div>
+				</div>
+			</div>
+			<FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
+		</div>
+		
+		<div class="col-md-4">	<!-- ******************************************** REVIEWS PANEL -->			
+			<div class="panel panel-primary">
+				<div class="panel-heading"><h3 class="panel-title">Reviews</h3></div>					
+				<div id="rev-list" class="list-group">
+					{% if rating_list %}
+						{% for this_rating in rating_list %}							
+							{% if this_rating.review != null %}									
+								<div class="list-group-item">
+									<h4 class="list-group-item-heading">"{{ this_rating.review }}" <br>- {{ this_rating.rating}}/5</h4>
+									<p class="list-group-item-text right">- {{ this_rating.owner }} - {{ this_rating.date|date:"d M Y" }}</p>
+								</div>
+							{% endif %}
+						{% endfor %}
+					{% else %}
+						<div id="no-rating" style="text-align:center;"><strong>This beer has not been reviewed yet</strong></div>
+					{% endif %}
+				</div>
 			</div>
 		</div>
 	
-	<!-- -------------------------------------------------------HIDDEN -------RATING POPUP CONTENT -->
-	<div id="rate-popup" class="ui-helper-hidden">
-		<br>		
-		<div class="col-md-12">
-			<textarea style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
-		</div>		
-		<br><br><br><br><br><br><br>
-		<div class="col-md-7">
-			<input name="add-rating" value="1" type="radio" class="star"/>
-			<input name="add-rating" value="2" type="radio" class="star"/>
-			<input name="add-rating" value="3" type="radio" class="star"/>
-			<input name="add-rating" value="4" type="radio" class="star"/> 
-			<input name="add-rating" value="5" type="radio" class="star"/>
-		</div>
-		
-		<div class="col-md-2">
-			<button data-beerslug="{{ beer.slug }}" data-user="{{ user.get_username }}" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
-		</div>
-		<div class="col-md-2">
-			<button id="rate-btn-cancel" class="btn-sm btn-primary">Cancel</button>
-		</div>	
+
+<!-- -******************************************** HIDDEN ******** RATING POPUP CONTENT -->
+<div id="rate-popup" class="ui-helper-hidden">
+	<br>		
+	<div class="col-md-12">
+		<textarea style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
+	</div>		
+	<br><br><br><br><br><br><br>
+	<div class="col-md-7">
+		<input name="add-rating" value="1" type="radio" class="star"/>
+		<input name="add-rating" value="2" type="radio" class="star"/>
+		<input name="add-rating" value="3" type="radio" class="star"/>
+		<input name="add-rating" value="4" type="radio" class="star"/> 
+		<input name="add-rating" value="5" type="radio" class="star"/>
 	</div>
 	
+	<div class="col-md-2"> <!-- buttons -->
+		<button data-beerslug="{{ beer.slug }}" data-user="{{ user.get_username }}" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
+	</div>
+	<div class="col-md-2">
+		<button id="rate-btn-cancel" class="btn-sm btn-primary">Cancel</button>
+	</div>	
+</div>
+
+<!-- -******************************************** HIDDEN ******** MAP CONTENT -->
+<div id="map-popup" class="ui-helper-hidden">
+	<div class="container">
+		<div class="row">
+			<div class="span12">
+				<strong>MAP SHOUDL BE HERE!</strong><br>
+			</div>
+		</div>
+		
+		<div class="row"> <!-- buttons -->
+			<div class="span12">
+				<button id="btn-map-close" class="btn-sm btn-primary">Close</button>
+			</div>
+		</div>
+	</div>
+	
+</div>
+	
 	
 		
-	{% else %}
-		<strong>Beer not found</strong>
-	{% endif %}
+{% else %}
+	<strong>Beer not found</strong>
+{% endif %}
 	
 {% endblock %}	
 
