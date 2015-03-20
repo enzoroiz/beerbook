@@ -1,7 +1,110 @@
 {% extends 'beerbookapp/base.html' %}
 
+{% load staticfiles %}
+
+{% load easy_maps_tags %}
+
 {% block title %}Index{% endblock %}
 
 {% block body_block %}
-	<p>This is : Index Page</p>
+    <div class="connected-carousels">
+        <div class="navigation">
+            <div class="carousel carousel-navigation">
+                <ul>
+                    <li><img src="/media/beer_images/guiness.jpg" width="100" height="100" alt=""></li>
+                    <li><img src="/media/beer_images/Stella_Artois_Bottle_2Hlx5OX.jpg"  height="100" height="100" alt=""></li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img3_thumb.jpg" width="100" height="100"  alt=""></li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img4_thumb.jpg" width="100" height="100"  alt=""></li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img5_thumb.jpg" width="100" height="100" alt=""></li>
+                </ul>
+            </div>
+        </div>
+
+
+        <div class="stage">
+            <div class="carousel carousel-stage">
+                <ul>
+                    <li>
+                        <div style="width: 600px; height:400px; background: #fff; padding:5px;">
+                            <div id="image" style="width:200px; padding-top: 30px; padding-bottom: 30px; max-height: 340px; float:left;">
+                                <img src="/media/beer_images/guiness.jpg" width="200" alt="">
+                                <p style="width: 200px; text-align: center"> Rating goes here.</p>
+                            </div>
+
+							<div id="info" style="float:right; width:300px;">
+								<h1> Guinness </h1>
+
+								<p> This beer is from Dublin, Ireland. It has long been a drink of the stereotypical Irish person.</p>
+
+								<a class="btn btn-primary" href="http://google.com">Find out more!</a>
+							</div>
+
+                        </div>
+                    </li>
+
+
+                    <li>
+						<div style="width: 600px; height:400px; background: #fff; padding:5px;">
+                            <div id="image" style="width:200px; padding-top: 30px; padding-bottom: 30px; max-height: 340px; float:left;">
+                                <img src="/media/beer_images/Stella_Artois_Bottle_2Hlx5OX.jpg" width="200" alt="">
+                                <p style="width: 200px; text-align: center"> Rating goes here.</p>
+                            </div>
+
+							<div id="info" style="float:right; width:300px;">
+								<h1> Stella </h1>
+
+								<p> This beer is from Leuven, Belgium. Informally called Stella, is a pilsner beer of between 4.8 and 5.2% ABV</p>
+
+								<a class="btn btn-primary" href="http://google.com">Find out more!</a>
+							</div>
+
+                        </div>
+					</li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img3.jpg" width="600" height="400" alt=""></li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img4.jpg" width="600" height="400" alt=""> </li>
+                    <li><img src="http://sorgalla.com/jcarousel/examples/_shared/img/img5.jpg" width="600" height="400" alt=""></li>
+                </ul>
+            </div>
+            <a href="#" class="prev prev-stage"><span>&lsaquo;</span></a>
+            <a href="#" class="next next-stage"><span>&rsaquo;</span></a>
+        </div>
+    </div>
+
+	<div style="float:right;" class="col-md-4 list-group">
+		<div class="well">
+			<h2> Upcoming Events </h2>
+
+			<ul>
+
+				<li>
+					<h4 class="list-group-item-heading"> Event 1 </h4>
+
+					<p class="list-group-item-text"> This is an event so it is. </p>
+				</li>
+				<li>
+					<h4 class="list-group-item-heading"> Event 2 </h4>
+
+					<p class="list-group-item-text"> This may be an event. </p>
+				</li>
+				<li>
+					<h4 class="list-group-item-heading"> Event 3 </h4>
+
+					<p class="list-group-item-text"> This is an event so it is. </p>
+				</li>
+				<li>
+					<h4 class="list-group-item-heading"> Event 4 </h4>
+
+					<p class="list-group-item-text"> This may be an event. </p>
+				</li>
+				<li>
+					<h4 class="list-group-item-heading"> Event 5 </h4>
+
+					<p class="list-group-item-text"> This is an event so it is. </p>
+				</li>
+
+
+
+			</ul>
+		</div>
+	</div>
 {% endblock %}
