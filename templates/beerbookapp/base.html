@@ -63,12 +63,14 @@
                 <li><a href="{% url 'event_catalogue' %}">Events</a></li>
                 <li><a href="#">Users</a></li>
             </ul>
-
-            <form class="navbar-form navbar-right" role="search">
+			
+			<!-- ****	BASE BEER SEARCH -->
+            <form class="navbar-form navbar-right" method="post" action="{% url 'beer_catalogue' %}" role="form">
+				{% csrf_token %} 
                 <div class="form-group">
-                    <input type="text" class="form-control" placeholder="Search">
+                    <input type="text" class="form-control" name="beername" placeholder="Search Beers">
                 </div>
-                <button type="submit" class="btn btn-info">Submit</button>
+                <button type="submit" class="btn btn-info">Search</button>
             </form>
 
             <ul class="nav navbar-nav navbar-right">

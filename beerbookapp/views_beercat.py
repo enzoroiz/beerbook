@@ -91,12 +91,12 @@ def beer_catalogue(request):
 
     if request.method == 'POST':
 
-        search_beer_type = request.POST['beertype']
-        search_beer_name = request.POST['beername']
-        search_beer_rating_max = request.POST['ratingmax']
-        search_beer_rating_min = request.POST['ratingmin']
-
         # print request.POST
+
+        search_beer_name = request.POST.get('beername', None)
+        search_beer_type = request.POST.get('beertype', 'none')
+        search_beer_rating_max = request.POST.get('ratingmax', 0)
+        search_beer_rating_min = request.POST.get('ratingmin', 0)
 
         cursor = connection.cursor()
         query_string = search_query_builder(search_beer_name, search_beer_type,
