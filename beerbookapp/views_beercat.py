@@ -55,7 +55,7 @@ def beer(request, beer_name_slug):
                         on P.location_id=L.id
                         join beerbookapp_Beer B
                         on S.stocked_item_id=B.id
-                        where B.name='""" + this_beer.name + "'"
+                        where B.slug='""" + this_beer.slug + "'"
 
         cursor = connection.cursor()
 
@@ -119,6 +119,8 @@ def beer_catalogue(request):
 
     else:
         beer_types = BeerType.objects.all()
+
+
 
         query_string = ("""
                         select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
