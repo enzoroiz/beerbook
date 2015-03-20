@@ -6,19 +6,24 @@
 
 {% block body_block %}
     <div class="connected-carousels">
-        <div class="navigation">
-            <div class="carousel carousel-navigation">
-                <ul>
-                    <li>
-						{% if beer.image != "" %}
-							<img src="/media/{{ beer.image }}" width="100px" alt="No picture found">
-						{% else %}
-							<img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
-						{% endif %}
-					</li>
-                </ul>
+        {% if beers %}
+            <div class="navigation">
+                <div class="carousel carousel-navigation">
+                    <ul>
+
+                            {% for beer in beers %}
+                            <li>
+                                {% if beer.image != "" %}
+                                    <img src="/media/{{ beer.image }}" width="100px" alt="No picture found">
+                                {% else %}
+                                    <img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                {% endif %}
+                            </li>
+                            {% endfor %}
+                    </ul>
+                </div>
             </div>
-        </div>
+        {% endif %}
 
 
         <div class="stage">
@@ -42,7 +47,7 @@
 
                                     <p> {{ beer.description }}</p>
 
-                                    <a class="btn btn-primary" href="#link">Find out more!</a>
+                                    <a class="btn btn-primary" href="{% url 'beer' beer_name_slug %}">Find out more!</a>
                                 </div>
 
                             </div>
@@ -50,7 +55,7 @@
                         {% endfor %}
 
                     {% else %}
-                        <li><h1> There are no beers here.</h1></li>
+                        <li id="slide"><h1> There are no beers here.</h1></li>
                     {% endif %}
                 </ul>
             </div>
