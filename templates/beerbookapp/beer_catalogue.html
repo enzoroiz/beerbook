@@ -64,7 +64,23 @@
 								<div class="col-lg-4">Rating</div>
 								<label for="id_rating_max" class="col-lg-3 control-label">Max:</label>
 								<div class="col-lg-5">
-									<select class="form-control input-sm" name="ratingmax">
+									<select class="form-control input-sm" id="id_ating_max" name="ratingmax">
+										<option value="1">1</option>
+										<option value="2">2</option>
+										<option value="3">3</option>
+										<option value="4">4</option>
+										<option value="5">5</option>
+										<option selected="selected" value="0">any</option>
+									</select>
+								</div>	
+							</div>
+							
+							<div class="form-group">
+								<div class="col-lg-4"></div>
+								<label for="id_rating_min" class="col-lg-3 control-label">Min:</label>
+								<div class="col-lg-5">
+									<select class="form-control input-sm" id="id_rating_min" name="ratingmin">
+										<option selected="selected" value="0">any</option>
 										<option value="1">1</option>
 										<option value="2">2</option>
 										<option value="3">3</option>
@@ -73,22 +89,8 @@
 									</select>
 								</div>	
 							</div>
-							
-							<div class="form-group">
-								<div class="col-lg-4"></div>
-								<label for="id_rating_max" class="col-lg-3 control-label">Min:</label>
-								<div class="col-lg-5">
-									<select class="form-control input-sm" name="ratingmax">
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="4">4</option>
-										<option selected="selected" value="5">5</option>
-									</select>
-								</div>	
-							</div>
-							<div class="col-lg-4 col-lg-offset-8">
-								<button type="submit" class="btn btn-primary">Search</button>
+							<div class="col-lg-13">
+								<BR><button type="submit" class="btn btn-primary" style="float: right;">Search</button>
 							</div>
 						</div>
 					</div>
