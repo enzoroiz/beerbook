@@ -38,5 +38,13 @@
 				{% endif %}				
 			</div>		
 		</div>
+		<div class="col-md-3">
+			{% if user.is_authenticated %}
+				<FORM><INPUT Type="button" class="btn-lg btn-primary" VALUE="Add Event" onClick="location.href='{% url 'add_event' %}'"></FORM>
+			{% else %}
+				<strong>Please log in to add own events.</strong>
+			{% endif %}
+				
+				</div>
 	</div>
 {% endblock %}

@@ -7,12 +7,38 @@ from django.contrib.auth.models import User
 from django.db import connection
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
-from beerbookapp.models import Event
+from beerbookapp.models import Event, Location
+
+@login_required
+def add_event(request):
+
+    success = False
+    context_dict ={}
+
+    if request.method == 'POST':
+        this_user = request.username
+        
+        pass
+    else:
+
+
+        try:
+            # send form with locations
+            this_location = Location.objects.all()
+            context_dict['locations'] = this_location
+        except:
+            pass
+
+    print context_dict
+
+
+    response = render(request, 'beerbookapp/add_event.html', context_dict)
+    return response
+
 
 
 def event(request, event_id):
     context_dict = {}
-
 
     # print event_id
 

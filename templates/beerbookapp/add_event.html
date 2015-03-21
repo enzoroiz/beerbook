@@ -1,0 +1,78 @@
+{% extends 'beerbookapp/base.html' %}	
+
+{% load staticfiles %}
+
+{% block scripts %}
+<script>
+  $(function() {
+    $( "#inputDate" ).datepicker({ minDate: 0 });
+    
+  });
+ </script>
+{% endblock %}	
+
+
+{% block body_block %}
+
+<div class="page-header"><h2>Add Event</h2></div>	
+	{% if locations %}
+		<div class="col-md-6 col-md-offset-3">
+			<form class="form-horizontal">
+			  <fieldset>				
+				<div class="form-group">
+				  <label for="inputUser" class="col-lg-2 control-label">User</label>
+				  <div class="col-lg-10">
+						<div class="left-inner-addon ">
+							<input type="text" class="form-control" id="inputUser" placeholder="Username" value="{{ user.username }}" readonly required>	
+							<i class="glyphicon glyphicon-user"></i>
+						</div>
+					</div>
+				</div>
+				
+				<div class="form-group">
+					<label for="inputDate" class="col-lg-2 control-label">Date</label>
+					<div class="col-lg-10">
+						<div class="left-inner-addon ">
+							<input type="text" class="form-control" id="inputDate" readonly required>
+								<i class="glyphicon glyphicon-calendar"></i>
+						</div>										
+					</div>
+				</div>
+				
+				<div class="form-group">
+				  <label for="textDesc" class="col-lg-2 control-label">Description</label>
+				  <div class="col-lg-10">
+					<textarea maxlength="1000" class="form-control" rows="3" id="textDesc"></textarea>
+					<span class="help-block">Maximum 1000 characters.</span>
+				  </div>
+				</div>
+						
+				
+				<div class="form-group">
+				  <label for="select" class="col-lg-2 control-label">Location</label>
+				  <div class="col-lg-10">
+					<select class="form-control" id="select" name="location" required>
+						<option selected ="selected" value="">(Selected One)</option>
+						{% for location in locations %}
+							<option value="{{ location.id }}">{{ location.name }}</option>
+						{% endfor %}					  
+					</select>
+					<br>			
+				  </div>
+				</div>
+				
+				<div class="form-group">
+				  <div class="col-lg-10 col-lg-offset-2">
+					<button type="reset" class="btn btn-default">Reset</button>
+					<button type="submit" class="btn btn-primary">Submit</button>
+					<INPUT Type="button" style="float: right;" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;">
+				  </div>
+				</div>
+			  </fieldset>
+			</form>
+		</div>
+	{% else %}
+		<strong>Some error</strong>
+	{% endif %}
+
+{% endblock %}	
