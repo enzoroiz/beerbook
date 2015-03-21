@@ -17,6 +17,7 @@ def add_event(request):
 
     if request.method == 'POST':
         this_user = request.username
+        
         pass
     else:
 
