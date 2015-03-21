@@ -6,16 +6,18 @@
 
 .connected-carousels .stage {
     width: 620px;
-    margin: 20px auto;
+    margin: 0 auto;
     position: relative;
 }
 
 /** Navigation container **/
 
 .connected-carousels .navigation {
-    width: 520px;
-    margin: 20px auto;
+    width: 620px;
+    margin: 20px 0;
+    margin-bottom: 0;
     position: relative;
+    background: #dd4814;
 }
 
 /** Shared carousel styles **/
@@ -26,7 +28,7 @@
 }
 
 .connected-carousels .carousel ul {
-    width: 20000em;
+    width: 20000px;
     position: relative;
     list-style: none;
     margin: 0;
@@ -52,13 +54,7 @@
 
 /** Navigation carousel specific styles **/
 
-.connected-carousels .carousel-navigation {
-    height: 120px;
-    width: 520px;
-    background: #fff;
-    border: 10px solid #ccc;
 
-}
 
 .connected-carousels .carousel-navigation li {
     cursor: pointer;
@@ -66,11 +62,11 @@
 
 .connected-carousels .carousel-navigation li img {
     display: block;
-    border: 5px solid #fff;
+    border: 5px solid #ffffff;
 }
 
 .connected-carousels .carousel-navigation li.active img {
-    border-color: #ccc;
+    border-color: #bf3e11;
 }
 
 /** Stage carousel controls **/
@@ -178,6 +174,7 @@
     height:400px;
     background: #fff;
     padding:5px;
+    padding-top: 0;
 }
 
 #image{
@@ -197,3 +194,17 @@
 	float:right;
 }
 
+.connected-carousels{
+    background-color: #ffffff;
+    margin: 20px auto;
+}
+
+.connected-carousels .carousel-navigation {
+    height: 100px;
+    width: 500px;
+    background: #ffffff;
+    border: 2px solid #dd4814;
+    margin-left:65px;
+    margin-right: auto;
+
+}
