@@ -10,15 +10,15 @@
             <div class="navigation">
                 <div class="carousel carousel-navigation">
                     <ul>
-						{% for beer in top_beers %}
-							<li>
-								{% if beer.2 != "" %}
-									<img src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
-								{% else %}
-									<img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
-								{% endif %}
-							</li>
-						{% endfor %}
+                        {% for beer in top_beers %}
+                            <li>
+                                {% if beer.2 != "" %}
+                                    <img src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                {% else %}
+                                    <img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                {% endif %}
+                            </li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>
@@ -30,25 +30,39 @@
                 <ul>
                     {% if top_beers %}
                         {% for beer in top_beers %}
-							<li>
-								<div id="slide">
-									<div id="image">
-										{% if beer.2 != "" %}
-											<img class="img-rounded" src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
-										{% else %}
-											<img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
-										{% endif %}
-										<p id="beer_rating"> Rating goes here.</p>
-									</div>
+                            <li>
+                                <div id="slide">
+                                    <div id="image">
+                                        {% if beer.2 != "" %}
+                                            <img class="img-rounded" src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                        {% else %}
+                                            <img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                        {% endif %}
 
-									<div id="info_carousel" >
-										<h1> {{ beer.1 }} </h1>
-										<p> {{ beer.3 }} ...</p>
-										<a class="btn btn-primary" href="/beerbook/beer_catalogue/{{ beer.0 }}">Find out more!</a>
-									</div>
+                                        <div class="row">
+                                            {% if  beer.4 == null %}
+                                                <div class="rating-container"><p>Unrated</p></div>
+                                            {% else %}
+                                                <div class="rating-container">
+                                                    <input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 1 %}checked="checked"{% endif %}/>
+                                                    <input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 2 %}checked="checked"{% endif %}/>
+                                                    <input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 3 %}checked="checked"{% endif %}/>
+                                                    <input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 4 %}checked="checked"{% endif %}/>
+                                                    <input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 5 %}checked="checked"{% endif %}/>
+                                                </div>
+                                            {% endif %}
+                                            <br>
+                                        </div>
+                                    </div>
 
-								</div>
-							</li>
+                                    <div id="info_carousel" >
+                                        <h1> {{ beer.1 }} </h1>
+                                        <p> {{ beer.3 }} ...</p>
+                                        <a class="btn btn-primary" href="/beerbook/beer_catalogue/{{ beer.0 }}">Find out more!</a>
+                                    </div>
+
+                                </div>
+                            </li>
                         {% endfor %}
                     {% else %}
                         <li id="slide"><h1> There are no beers here.</h1></li>
@@ -60,15 +74,28 @@
         </div>
     </div>
 
-	<div style="float:right;" class="col-md-4 list-group">
-		<div class="well">
-			<h2> Upcoming Events </h2>
-			<ul>
-				<li>
-					<h4 class="list-group-item-heading"> Event title </h4>
-					<p class="list-group-item-text"> Event info. </p>
-				</li>
-			</ul>
-		</div>
-	</div>
+    <div style="float:right;" class="col-md-4 list-group">
+        <div class="well">
+            <h2> Upcoming Events </h2>
+
+            {% if recent_events %}
+                <ul class="list-group" style="list-style: none">
+                    {% for event in recent_events %}
+                        <li class=" panel panel-warning">
+                            <div class="panel-heading">
+                                <h4 class="list-group-item-heading panel-title">{{ event.0 }}</h4>
+                            </div>
+
+                            <div class="panel-content">
+                                <p class="list-group-item-text panel-body"> {{ event.1|date:"d M Y" }} at  {{event.1|date:" h:m" }}
+                                    <strong class="list-group-item-text" >   - {{ event.2 }}</strong></p>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h3>Unfortunately there are no upcoming events.</h3>
+            {% endif %}
+        </div>
+    </div>
 {% endblock %}

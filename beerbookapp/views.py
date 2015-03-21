@@ -15,22 +15,28 @@ def index(request):
 
     context_dict = {}
 
-    sql_query = "select B.slug, B.name , B.image, substr(B.description, 1, 100), ROUND(AVG(R.rating), 0) " \
+    sql_query = "select B.slug, B.name , B.image, substr(B.description, 1, 150), ROUND(AVG(R.rating), 0) " \
                 "from beerbookapp_Beer B " \
                 " left outer join beerbookapp_Rating R on B.id = R.rated_beer_id" \
                 " group by B.id" \
                 " order by ROUND(AVG(R.rating), 0) desc"
+
+    sql_query1 = "select E.title, E.datetime, U.username " \
+                "from beerbookapp_Event E " \
+                "join auth_user U " \
+                "on E.owner_id = U.id " \
+                "order by E.datetime"
 
     cursor = connection.cursor()
 
     try:
         cursor.execute(sql_query)
         context_dict['top_beers'] = cursor.fetchall()
+        cursor.execute(sql_query1)
+        context_dict['recent_events'] = cursor.fetchall()
         print context_dict
     finally:
         cursor.close()
-
-
 
     response = render(request, 'beerbookapp/index.html', context_dict)
     return response
