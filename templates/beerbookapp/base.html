@@ -78,7 +78,10 @@
             <form class="navbar-form navbar-right" method="post" action="{% url 'beer_catalogue' %}" role="form">
 				{% csrf_token %} 
                 <div class="form-group">
+					<div class="left-inner-addon ">
                     <input type="text" class="form-control" name="beername" placeholder="Search Beers">
+						<i class="glyphicon glyphicon-search"></i>
+					</div>	
                 </div>
                 <button type="submit" class="btn btn-info">Search</button>
             </form>
