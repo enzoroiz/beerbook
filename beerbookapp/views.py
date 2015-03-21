@@ -41,29 +41,6 @@ def user_profile(request):
     return response
 
 
-def event_catalogue(request):
-
-
-    context_dict = {}
-
-    sql_query = "select * " \
-                "from beerbookapp_Event E "
-
-
-    cursor = connection.cursor()
-
-    try:
-        cursor.execute(sql_query)
-        context_dict['events_list'] = cursor.fetchall()
-        print context_dict
-    finally:
-        cursor.close()
-
-
-
-    response = render(request, 'beerbookapp/event_catalogue.html')
-    return response
-
 @login_required
 def profile(request, username):
     act_user = User.objects.get(username=username)
