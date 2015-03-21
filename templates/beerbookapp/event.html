@@ -1,0 +1,132 @@
+{% extends 'beerbookapp/base.html' %}	
+
+{% load staticfiles %}
+
+
+{% block body_block %}
+
+	{% if event %}
+	<div class="page-header"><h1>{{ event.title }}</h1></div>
+	
+	<div class="row"> <!-- ***********************************DATE -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Date</h3>
+					</div>
+				</div>				
+			</div>			
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ event.datetime|date:"d M Y" }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>		
+	</div>
+	<div class="row"> <!-- ***************************** TIME -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Time</h3>
+					</div>
+				</div>				
+			</div>			
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ event.datetime|date:"h:m" }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>		
+	</div>	
+	
+	<div class="row"> <!-- ******************************* Location -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Location</h3>
+					</div>
+				</div>				
+			</div>			
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ event.location }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>		
+	</div>
+	
+	<div class="row"> <!-- ****************************DESCRIPTION -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Description</h3>
+					</div>
+				</div>				
+			</div>			
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ event.description }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>		
+	</div>
+	
+	<div class="row"> <!-- ************************** HOST -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">				
+				<div class="panel panel-primary">
+					<div class="panel-heading">
+						<h3 class="panel-title">Host</h3>
+					</div>
+				</div>				
+			</div>			
+			<div class="col-md-9">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h3 class="panel-title">{{ event.owner }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-3"></div>		
+	</div>
+	
+	<div class="row"> <!-- ************************** HOST -->
+		<div class="col-md-6 col-md-offset-3">
+			<div class="col-md-3">
+			</div>			
+			<div class="col-md-9"><FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>				
+			</div>
+		</div>
+		<div class="col-md-3">
+			
+		</div>		
+	</div>
+	
+	
+	
+	
+	{% else %}
+		<strong>Event not found</strong>
+	{% endif %}
+
+
+
+
+{% endblock %}	
