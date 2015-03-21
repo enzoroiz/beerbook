@@ -2,6 +2,14 @@ body {
 background-color: #F5E0FF;
 }
 
+.beer-img {
+	width:155px;
+	height:155px;
+	display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .panel-primary {  
   background-color: #FFFFFF;
 }
@@ -27,14 +35,16 @@ background-color: #F5E0FF;
 
 }
 
+
 #footer {
 	width:100%;
 	height:150px;
-	position:absolute;
+	
 	bottom:0;
 	left:0;
 	background-color: #FFD7A3;
 }
+
 
 #social:hover {
 	-webkit-transform: scale(1.1);

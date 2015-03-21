@@ -11,17 +11,20 @@
 	
 		<div class="page-header"><h1>{{ beer.name }}</h1></div>
 		
-		<div class="col-md-3">	<!-- ******************************************** IMAGE -->	
+		<div class="col-md-2">	<!-- ******************************************** IMAGE -->	
 			<div class="panel panel-primary">
 				<div class="panel-body">
-					<div class="row"> 
-						{% if beer.image != "" %}
-							<img class="img-rounded" src="/media/{{ beer.image }}" alt="No picture found">
-						{% else %}
-							<img class="img-rounded" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
-						{% endif %}
-						
+					<div class="row">						
+						<div id="beer-img"> 
+							{% if beer.image != "" %}
+								<img class="beer-img" src="/media/{{ beer.image }}" alt="No picture found">
+							{% else %}
+								<img class="beer-img" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
+							{% endif %}
+						</div>
 					</div>
+					
+					
 					<br><br>
 					<div class="row">						
 						{% if rating == null %}
@@ -37,6 +40,8 @@
 						{% endif %}
 						<br>						
 					</div>					
+					
+					
 					
 					<div class="row"> <!-- ******************************************** RATE BUTTON -->					
 						{% if user.is_authenticated %}
@@ -54,7 +59,7 @@
 			</div>
 		</div>
 		
-		<div class="col-md-5">	<!-- ******************************************** DATA PANEL -->	
+		<div class="col-md-4">	<!-- ******************************************** DATA PANEL -->	
 			<div class="panel panel-primary">
 				<div class="panel-body">
 					<div class="row">
@@ -64,7 +69,7 @@
 						<div class="col-md-7">						
 							{{ beer.type }}
 						</div>
-						<button id="btn-map-open" class="btn-sm btn-primary">MAP</button> <!-- **** MAP BUTTON --> 
+						
 					</div>
 					<div class="row">
 						<div class="col-md-3">
@@ -96,10 +101,10 @@
 				</div>
 			</div>
 			<FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>
-		</div>
-		
-		<div class="col-md-4">	<!-- ******************************************** REVIEWS PANEL -->			
-			<div class="panel panel-primary">
+		</div>	
+			
+		<div class="col-md-3">		
+			<div class="panel panel-primary"> <!-- ******************* REVIEWS PANEL -->
 				<div class="panel-heading"><h3 class="panel-title">Reviews</h3></div>					
 				<div id="rev-list" class="list-group">
 					{% if rating_list %}
@@ -118,9 +123,18 @@
 			</div>
 		</div>
 		
-		<div class="col-md-12">
-            
-        </div>
+		<div class="col-md-3">	<!-- ******************************************** MAP PANEL -->	
+			<div class="row">			 
+				<div class="panel panel-primary">							
+					<div class="panel-body">
+						{% easy_map "none" 100% 300 12 using 'beerbookapp/maps.html' %}
+					</div>								
+				</div>		
+			</div>
+		</div>
+	</div>
+		
+		
 	
 
 <!-- -******************************************** HIDDEN ******** RATING POPUP CONTENT -->
@@ -146,25 +160,6 @@
 	</div>	
 </div>
 
-<!-- -******************************************** HIDDEN ******** MAP CONTENT -->
-<div id="map-popup" class="ui-helper-hidden">
-	<div class="container">
-		<div class="row">
-			<div class="span12">
-				<strong>MAP SHOUDL BE HERE!</strong><br>
-				<!-- Parameters (let as none) "none" width height mapzoom -->
-            {% easy_map "none" 100% 300 12 using 'beerbookapp/maps.html' %}
-			</div>
-		</div>
-		
-		<div class="row"> <!-- buttons -->
-			<div class="span12">
-				<button id="btn-map-close" class="btn-sm btn-primary">Close</button>
-			</div>
-		</div>
-	</div>
-	
-</div>
 	
 	
 		
