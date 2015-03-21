@@ -172,7 +172,7 @@ def search_query_builder(beer_name, type_name, rating_min, rating_max):
     beer_name = beer_name.replace("'", "''")
 
     query_string = """
-                        select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
+                        select B.slug, B.name, B.description, ROUND(AVG(R.rating), 0), B.image
                         from beerbookapp_Beer B
                         left outer join
                         beerbookapp_Rating R
