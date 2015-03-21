@@ -5,76 +5,79 @@
 {% block title %}Home{% endblock %}
 
 {% block body_block %}
-    <div class="connected-carousels">
-        {% if top_beers %}
-            <div class="navigation">
-                <div class="carousel carousel-navigation">
+    <div class="col-md-8">
+        <div class="connected-carousels">
+            <h1 style="text-align: center; font-size: 52px;"> TOP RATED BEERS</h1>
+            {% if top_beers %}
+                <div class="navigation">
+                    <div class="carousel carousel-navigation">
+                        <ul>
+                            {% for beer in top_beers %}
+                                <li>
+                                    {% if beer.2 != "" %}
+                                        <img src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                    {% else %}
+                                        <img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                    {% endif %}
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            {% endif %}
+
+
+            <div class="stage">
+                <div class="carousel carousel-stage">
                     <ul>
-                        {% for beer in top_beers %}
-                            <li>
-                                {% if beer.2 != "" %}
-                                    <img src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
-                                {% else %}
-                                    <img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
-                                {% endif %}
-                            </li>
-                        {% endfor %}
+                        {% if top_beers %}
+                            {% for beer in top_beers %}
+                                <li>
+                                    <div id="slide">
+                                        <div id="image">
+                                            {% if beer.2 != "" %}
+                                                <img class="img-rounded" src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                            {% else %}
+                                                <img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                            {% endif %}
+
+                                            <div class="row">
+                                                {% if  beer.4 == null %}
+                                                    <div class="rating-container"><p>Unrated</p></div>
+                                                {% else %}
+                                                    <div class="rating-container">
+                                                        <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 1 %}checked="checked"{% endif %}/>
+                                                        <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 2 %}checked="checked"{% endif %}/>
+                                                        <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 3 %}checked="checked"{% endif %}/>
+                                                        <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 4 %}checked="checked"{% endif %}/>
+                                                        <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 5 %}checked="checked"{% endif %}/>
+                                                    </div>
+                                                {% endif %}
+                                                <br>
+                                            </div>
+                                        </div>
+
+                                        <div id="info_carousel" >
+                                            <h1> {{ beer.1 }} </h1>
+                                            <p> {{ beer.3 }} ...</p>
+                                            <a class="btn btn-primary" href="/beerbook/beer_catalogue/{{ beer.0 }}">Find out more!</a>
+                                        </div>
+
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        {% else %}
+                            <li id="slide"><h1> There are no beers here.</h1></li>
+                        {% endif %}
                     </ul>
                 </div>
+                <a href="#" class="prev prev-stage"><span>&lsaquo;</span></a>
+                <a href="#" class="next next-stage"><span>&rsaquo;</span></a>
             </div>
-        {% endif %}
-
-
-        <div class="stage">
-            <div class="carousel carousel-stage">
-                <ul>
-                    {% if top_beers %}
-                        {% for beer in top_beers %}
-                            <li>
-                                <div id="slide">
-                                    <div id="image">
-                                        {% if beer.2 != "" %}
-                                            <img class="img-rounded" src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
-                                        {% else %}
-                                            <img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
-                                        {% endif %}
-
-                                        <div class="row">
-                                            {% if  beer.4 == null %}
-                                                <div class="rating-container"><p>Unrated</p></div>
-                                            {% else %}
-                                                <div class="rating-container">
-                                                    <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 1 %}checked="checked"{% endif %}/>
-                                                    <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 2 %}checked="checked"{% endif %}/>
-                                                    <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 3 %}checked="checked"{% endif %}/>
-                                                    <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 4 %}checked="checked"{% endif %}/>
-                                                    <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 5 %}checked="checked"{% endif %}/>
-                                                </div>
-                                            {% endif %}
-                                            <br>
-                                        </div>
-                                    </div>
-
-                                    <div id="info_carousel" >
-                                        <h1> {{ beer.1 }} </h1>
-                                        <p> {{ beer.3 }} ...</p>
-                                        <a class="btn btn-primary" href="/beerbook/beer_catalogue/{{ beer.0 }}">Find out more!</a>
-                                    </div>
-
-                                </div>
-                            </li>
-                        {% endfor %}
-                    {% else %}
-                        <li id="slide"><h1> There are no beers here.</h1></li>
-                    {% endif %}
-                </ul>
-            </div>
-            <a href="#" class="prev prev-stage"><span>&lsaquo;</span></a>
-            <a href="#" class="next next-stage"><span>&rsaquo;</span></a>
         </div>
     </div>
 
-    <div style="float:right;" class="col-md-4 list-group">
+    <div style="float:right; margin-top:20px;" class="col-md-4 list-group">
         <div class="well">
             <h2> Upcoming Events </h2>
 
