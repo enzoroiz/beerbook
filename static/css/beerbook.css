@@ -46,12 +46,24 @@ html{
 #reviews {
 	width: 100%;
 }
+
 .beer-img {
 	width: 100%;
-  	height: 285px;
+  	height: 275px;
 	display: block;
 	padding-right:7px;
 	padding-left:7px;
+}
+
+.thumbnail {
+	width: 100px;
+	height: 100px;
+	position: relative;
+	float: left;
+}
+
+a.list-group-item {
+	height:150px;
 }
 
 .footer {

@@ -71,10 +71,10 @@
 		</form>
 	</div>
 
-	<div class="col-md-8"> <!-- ******************************************** BEER LIST -->					
+	<div class="col-md-9"> <!-- ******************************************** BEER LIST -->					
 		<div class="list-group">
 			{% if search_beer %}						
-					<a href="/beerbook/beer_catalogue/{{ beer.slug }}" class="list-group-item">
+					<a href="/beerbook/beer_catalogue/{{ beer.slug }}">
 						<h4 class="list-group-item-heading">{{ search_beer.name }}</h4>
 						<p class="list-group-item-text">{{ search_beer.name }}</p>
 					</a>						
@@ -83,12 +83,25 @@
 					<a href="/beerbook/beer_catalogue/{{ beer.0 }}" class="list-group-item">
 						<h4 class="list-group-item-heading">{{ beer.1 }}</h4>								
 							<p class="list-group-item-text">
-							<div class="col-md-9">
-								{{ beer.2 }} 
+							
+							
+							<div class="thumbnail">
+								{% if beer.4 != "" %}
+									<img src="/media/{{ beer.4 }}" alt="No picture found">
+								{% else %}
+									<img src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
+								{% endif %}
+							</div>	
+							
+							
+							
+							<div class="col-md-8">
+								{{ beer.2|truncatewords:"50" }}
+								<strong> See details.</strong>
 							</div>
 							
 							
-							<div class="col-md-3">											
+							<div class="col-md-2">											
 								{% if beer.3 == null %}
 									<div class="rating-container"><p>Unrated</p></div>
 								{% else %}

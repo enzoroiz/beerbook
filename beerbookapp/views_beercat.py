@@ -123,7 +123,7 @@ def beer_catalogue(request):
 
 
         query_string = ("""
-                        select B.slug, B.name, T.name, ROUND(AVG(R.rating), 0)
+                        select B.slug, B.name, B.description, ROUND(AVG(R.rating), 0), B.image
                         from beerbookapp_Beer B
                         left outer join
                         beerbookapp_Rating R
@@ -139,6 +139,7 @@ def beer_catalogue(request):
         try:
             cursor.execute(query_string)
             query_result = cursor.fetchall()
+            print query_result
         finally:
             cursor.close()
 
