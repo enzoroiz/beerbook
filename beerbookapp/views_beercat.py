@@ -218,6 +218,3 @@ def search_query_builder(beer_name, type_name, rating_min, rating_max):
     return query_string
 
 
-    # used to check how the heck django names columns
-    # for field in <MODELNAME>._meta.fields:
-    #     print field.get_attname_column()

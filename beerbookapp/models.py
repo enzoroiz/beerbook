@@ -111,6 +111,7 @@ class Event(models.Model):
     datetime = models.DateTimeField()
     description = models.TextField()
 
+
     # relationships
     location = models.ForeignKey(Location)
     owner = models.ForeignKey(User)

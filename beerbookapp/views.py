@@ -25,7 +25,8 @@ def index(request):
                 "from beerbookapp_Event E " \
                 "join auth_user U " \
                 "on E.owner_id = U.id " \
-                "order by E.datetime"
+                "order by E.datetime " \
+                "LIMIT 3"
 
     cursor = connection.cursor()
 
@@ -34,7 +35,7 @@ def index(request):
         context_dict['top_beers'] = cursor.fetchall()
         cursor.execute(sql_query1)
         context_dict['recent_events'] = cursor.fetchall()
-        print context_dict
+        # print context_dict
     finally:
         cursor.close()
 
@@ -54,7 +55,7 @@ def profile(request, username):
     
     if request.method == 'POST':
         if 'is_password' in request.POST:
-            print "IS_PASSWORD"
+            # print "IS_PASSWORD"
             data = {}
             if 'old_password' in request.POST:
                 data['old_password'] = request.POST['old_password']
@@ -69,7 +70,7 @@ def profile(request, username):
                 user = authenticate(username=username, password=data['new_password1'])
                 login(request, user)
                 messages.success(request, 'Password changed.')
-                print messages
+                # print messages
                 return render(request, 'beerbookapp/profile.html', {'userprofile': userprofile, 'act_user': act_user, 'user':user })
             else:
                 if form.errors:
