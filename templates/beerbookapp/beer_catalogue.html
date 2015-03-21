@@ -6,7 +6,7 @@
 {% block body_block %}
 	<div class="page-header"><h2>Beer Catalogue</h2></div>	
 	
-				
+	{% if locations %}			
 	<div class="col-md-3">	<!-- ******************************************** SEARCH -->			
 		<form role="form" class="form-horizontal" method="post" action=".">
 			{% csrf_token %}
@@ -55,12 +55,10 @@
 							<label for="id_rating_min" class="col-lg-3 control-label">Min:</label>
 							<div class="col-lg-5">
 								<select class="form-control input-sm" id="id_rating_min" name="ratingmin">
-									<option selected="selected" value="0">any</option>
+									<option selected="selected" value="0">(Select)</option>
+									{% for loc in
 									<option value="1">1</option>
-									<option value="2">2</option>
-									<option value="3">3</option>
-									<option value="4">4</option>
-									<option value="5">5</option>
+									
 								</select>
 							</div>	
 						</div>
