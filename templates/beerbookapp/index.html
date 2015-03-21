@@ -6,7 +6,7 @@
 
 {% block body_block %}
     <div class="col-md-8">
-        <div class="connected-carousels">
+        <div class="connected-carousels" style=" background: #f5f5f5;">
             <h1 style="text-align: center; font-size: 52px;"> TOP RATED BEERS</h1>
             {% if top_beers %}
                 <div class="navigation">
@@ -36,9 +36,9 @@
                                     <div id="slide">
                                         <div id="image">
                                             {% if beer.2 != "" %}
-                                                <img class="img-rounded" src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                                <img class="img-rounded" id="image-override" src="/media/{{ beer.2 }}" width="300px" alt="No picture found">
                                             {% else %}
-                                                <img class="img-rounded" src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                                <img class="img-rounded" id="image-override" src="/media/beer_images/noimage.jpg" width="300px" alt="YEH No picture found">
                                             {% endif %}
 
                                             <div class="row">
