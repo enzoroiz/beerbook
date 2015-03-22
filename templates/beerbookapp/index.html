@@ -25,9 +25,9 @@
                             {% for beer in top_beers %}
                                 <li>
                                     {% if beer.2 != "" %}
-                                        <img src="/media/{{ beer.2 }}" width="100px" alt="No picture found">
+                                        <img src="/media/{{ beer.2 }}" id="image-override-thumb" alt="No picture found">
                                     {% else %}
-                                        <img src="/media/beer_images/noimage.jpg" width="100px" alt="YEH No picture found">
+                                        <img src="/media/beer_images/noimage.jpg" id="image-override-thumb" alt="YEH No picture found">
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -36,7 +36,7 @@
                 </div>
             {% endif %}
 
-            <div class="stage">
+            <div class="stage" style="background-color: #4E443C;">
                 <div class="carousel carousel-stage">
                     <ul>
                         {% if top_beers %}
@@ -45,14 +45,14 @@
                                     <div id="slide">
                                         <div id="image">
                                             {% if beer.2 != "" %}
-                                                <img class="img-rounded" id="image-override" src="/media/{{ beer.2 }}" width="300px" alt="No picture found">
+                                                <img class="img-rounded" id="image-override" src="/media/{{ beer.2 }}" alt="No picture found">
                                             {% else %}
-                                                <img class="img-rounded" id="image-override" src="/media/beer_images/noimage.jpg" width="300px" alt="YEH No picture found">
+                                                <img class="img-rounded" id="image-override" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
                                             {% endif %}
 
                                             <div class="row">
                                                 {% if  beer.4 == null %}
-                                                    <div class="rating-container"><p>Unrated</p></div>
+                                                    <div class="rating-container">Unrated</div>
                                                 {% else %}
                                                     <div class="rating-container">
                                                         <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 1 %}checked="checked"{% endif %}/>
@@ -67,8 +67,11 @@
                                         </div>
 
                                         <div id="info_carousel" >
-                                            <h1> {{ beer.1 }} </h1>
+                                            <h2> {{ beer.1 }} </h2>
+                                            <br>
+                                            <br>
                                             <p> {{ beer.3 }} ...</p>
+                                            <br>
                                             <a class="btn btn-primary" href="/beerbook/beer_catalogue/{{ beer.0 }}">Find out more!</a>
                                         </div>
 

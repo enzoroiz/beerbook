@@ -8,16 +8,18 @@
     width: 620px;
     margin: 0 auto;
     position: relative;
+    
 }
 
 /** Navigation container **/
 
-.connected-carousels .navigation {
+.connected-carousels .navigation { /* Image select upper bar */
     width: 620px;
     margin: 20px 0;
+    height: 100px;
     margin-bottom: 0;
     position: relative;
-    background: #dd4814;
+    background: #DD4814;
 }
 
 /** Shared carousel styles **/
@@ -50,6 +52,7 @@
     -webkit-box-shadow: 0 0 2px #999;
        -moz-box-shadow: 0 0 2px #999;
             box-shadow: 0 0 2px #999;
+            
 }
 
 /** Navigation carousel specific styles **/
@@ -63,10 +66,11 @@
 .connected-carousels .carousel-navigation li img {
     display: block;
     border: 5px solid #ffffff;
+    
 }
 
-.connected-carousels .carousel-navigation li.active img {
-    border-color: #bf3e11;
+.connected-carousels .carousel-navigation li.active img { /** upper border selected image **/
+    border-color: #772953;
 }
 
 /** Stage carousel controls **/
@@ -169,11 +173,11 @@
 
 /** CUSTON **/
 
-#slide{
+#slide{ /* Background for info + image */
 	width: 600px;
     height:400px;
-    background: #fff;
-    padding:5px;
+    background: #ffffff;    
+    padding:10px;
     padding-top: 0;
 }
 
@@ -181,19 +185,38 @@
 	width:250px;
 	padding-top: 30px;
 	padding-bottom: 30px;
-	max-height: 340px;
+	max-height: 250px;
 	float:left;
 }
 
-#image-override{
-	width:300px;
+#image-override{ /* big left image */
+	width:auto;
     height: auto;
-    max-height: 350px;
+    max-height: 250px;
+    max-width: 250px;
+    
 }
 
-#info_carousel{
-    width:300px;
+#image-override-thumb{ /* big left image */
+	width:auto;
+    height: auto;
+    max-height: 100px;
+    max-width: 100px;
+    
+}
+
+#info_carousel{ /* INFO TEXT */
+    width:310px;
+    height:360px;
 	float:right;
+	margin-top:10px;	
+	padding-left:10px;
+	padding-right:10px;
+	background-color:#ffffff;
+	border-style: solid;
+	border-width: 5px; 
+	border-color: #DD4814;
+	border-radius: 15px;
 }
 
 #info_carousel h1{
@@ -209,12 +232,13 @@
     margin: 20px auto;
 }
 
-.connected-carousels .carousel-navigation {
+.connected-carousels .carousel-navigation { /* navigation */
     height: 100px;
     width: 500px;
     background: #ffffff;
-    border: 2px solid #dd4814;
+    border: 1px solid #ffffff;
     margin-left:65px;
     margin-right: auto;
 
 }
+

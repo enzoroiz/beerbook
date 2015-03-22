@@ -2,25 +2,25 @@ $(document).ready( function() {
 
     $("#rate-btn").click( function(event) {
         $( "#rate-popup" ).dialog({
-			width: 500,
-            height: 275,
+			width: 400,
+            height: 250,
             closeOnEscape: true,
             draggable: true,
             resizable: false,
 			title: 'Add Rating!',
 			show: {effect: 'scale', duration: 200},
 			hide: {effect: 'puff', duration: 200},
-			dialogClass: 'rat',
+			//dialogClass: 'rat',
 			
 		});
 		//$(".rat .ui-dialog-title").css("font-size", "5px");
-		$(".rat .ui-widget-content").css("background-color", "#F8F8F8");
-		$(".rat .ui-widget-content").css("border", "5px solid #DD4814");
+		//$(".rat .ui-widget-content").css("background-color", "#F8F8F8");
+		//$(".rat .ui-widget-content").css("border", "5px solid #DD4814");
 		//$(".rat .ui-dialog-titlebar").css("display", "none");
-		$(".rat .ui-widget-content").css("padding", "0px");		
-		$(".rat .ui-widget-header").css("color", "white");	
+		//$(".rat .ui-widget-content").css("padding", "0px");		
+		//$(".rat .ui-widget-header").css("color", "white");	
 		//$(".rat .ui-widget-header").css("border", "none");		
-		$(".rat .ui-dialog-titlebar").css("background", "#DD4814");		
+		//$(".rat .ui-dialog-titlebar").css("background", "#DD4814");		
 		
     });
     

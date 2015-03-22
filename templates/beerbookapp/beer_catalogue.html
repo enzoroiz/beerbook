@@ -107,7 +107,7 @@
 							
 							<div class="col-md-2">											
 								{% if beer.3 == null %}
-									<div class="rating-container"><p>Unrated</p></div>
+									<div class="rating-container">Unrated <i class="fa fa-adjust"></i></div>
 								{% else %}
 								<div class="rating-container">
 								<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 1 %}checked="checked"{% endif %}/>
