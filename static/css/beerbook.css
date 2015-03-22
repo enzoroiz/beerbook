@@ -50,7 +50,7 @@ html{
 	float: left
 }
 
-#beer-content {
+.beer-content {
 	height:420px;
 }
 
