@@ -5,9 +5,26 @@
 {% block scripts %}
 <script>
   $(function() {
-    $( "#inputDate" ).datepicker({ minDate: 0 });
+    $( "#inputDate" ).datepicker({dateFormat: 'dd/mm/yy', minDate: 0 });
     
-  });
+    $("#inputDate").keydown(function(e){
+        e.preventDefault();
+    });
+    
+    $('#textDesc').keyup(function () {
+		  var max = 1000;
+		  var len = $(this).val().length;
+		  if (len >= max) {
+			$('#charNum').text(' you have reached the limit');
+		  } else {
+			var char = max - len;
+			$('#charNum').text('(' + char + ' characters left)');
+		  }
+	});
+    
+});
+  
+  
  </script>
 {% endblock %}	
 
@@ -15,11 +32,15 @@
 {% block body_block %}
 
 <div class="page-header"><h2>Add Event</h2></div>	
+
 	{% if locations %}
 		<div class="col-md-6 col-md-offset-3">
-			<form class="form-horizontal">
-			  <fieldset>				
-				<div class="form-group">
+			<form class="form-horizontal" role="form" method="post" action=".">
+				{% csrf_token %}
+				
+			  <fieldset>	
+				<!-- *********************************************** USER -->			
+				<div class="form-group"> 
 				  <label for="inputUser" class="col-lg-2 control-label">User</label>
 				  <div class="col-lg-10">
 						<div class="left-inner-addon ">
@@ -29,29 +50,61 @@
 					</div>
 				</div>
 				
+				<!-- *********************************************** TITLE -->			
+				<div class="form-group"> 
+					 <label for="inputTitle" class="col-lg-2 control-label">User</label>
+					 <div class="col-lg-10">						
+							<input type="text" class="form-control" id="inputUser" name="ev_title" placeholder="Title" required>	
+					</div>
+				</div>
+				
+				<!-- *********************************************** DATE -->
 				<div class="form-group">
 					<label for="inputDate" class="col-lg-2 control-label">Date</label>
 					<div class="col-lg-10">
 						<div class="left-inner-addon ">
-							<input type="text" class="form-control" id="inputDate" readonly required>
+							<input name="ev_date" type="text" class="form-control" id="inputDate" required>
 								<i class="glyphicon glyphicon-calendar"></i>
 						</div>										
 					</div>
 				</div>
 				
+				<!-- *********************************************** TIME -->
+				
+				<div class="form-group">
+					<label for="inputTimeH" class="col-lg-2 control-label">Time:</label>
+					
+					<div class="col-lg-3">
+						<div class="right-inner-addon ">
+						<input class="form-control" value=12 id="inputTimeH" name="ev_time-h" type="number" min="0" step="1" max="24" required>
+						<i class="glyphicon">H</i>
+						</div>
+					</div>
+					
+					<div class="col-lg-3">
+						<div class="right-inner-addon ">
+						<input class="form-control" value=30 id="inputTimeM" name="ev_time-m" type="number" min="0" step="5" max="60" required>
+						<i class="glyphicon">M</i>
+						</div>
+					</div>
+				</div>	
+				
+				
+				
+				<!-- *********************************************** DESCRIPTION -->
 				<div class="form-group">
 				  <label for="textDesc" class="col-lg-2 control-label">Description</label>
 				  <div class="col-lg-10">
-					<textarea maxlength="1000" class="form-control" rows="3" id="textDesc"></textarea>
-					<span class="help-block">Maximum 1000 characters.</span>
+					<textarea name="ev_desc" maxlength="1000" class="form-control" rows="3" id="textDesc"></textarea>					
+					<span class="help-block"> <div id="charNum">(1000 characters left)</div></span>
 				  </div>
 				</div>
 						
-				
+				<!-- *********************************************** LOCATION -->
 				<div class="form-group">
 				  <label for="select" class="col-lg-2 control-label">Location</label>
 				  <div class="col-lg-10">
-					<select class="form-control" id="select" name="location" required>
+					<select class="form-control" id="select" name="ev_location" required>
 						<option selected ="selected" value="">(Selected One)</option>
 						{% for location in locations %}
 							<option value="{{ location.id }}">{{ location.name }}</option>
@@ -61,6 +114,7 @@
 				  </div>
 				</div>
 				
+				<!-- *********************************************** BUTTONS -->
 				<div class="form-group">
 				  <div class="col-lg-10 col-lg-offset-2">
 					<button type="reset" class="btn btn-default">Reset</button>
@@ -71,8 +125,12 @@
 			  </fieldset>
 			</form>
 		</div>
+	{% elif ev_error %}
+		<strong>{{ ev_error }}</strong>
+		<INPUT Type="button" style="float: right;" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;">
 	{% else %}
-		<strong>Some error</strong>
+		<strong>Error</strong>
+		<INPUT Type="button" style="float: right;" class="btn btn-primary" VALUE="Back" onClick="history.go(-1);return true;">
 	{% endif %}
 
 {% endblock %}	
