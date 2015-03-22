@@ -15,11 +15,12 @@ def index(request):
 
     context_dict = {}
 
-    sql_query = "select B.slug, B.name , B.image, substr(B.description, 1, 150), ROUND(AVG(R.rating), 0) " \
+    sql_query = "select B.slug, B.name , B.image, substr(B.description, 1, 217), ROUND(AVG(R.rating), 0) " \
                 "from beerbookapp_Beer B " \
                 " left outer join beerbookapp_Rating R on B.id = R.rated_beer_id" \
                 " group by B.id" \
-                " order by ROUND(AVG(R.rating), 0) desc"
+                " order by ROUND(AVG(R.rating), 0) desc " \
+                "LIMIT 5"
 
     sql_query1 = "select E.title, E.datetime, U.username " \
                 "from beerbookapp_Event E " \
