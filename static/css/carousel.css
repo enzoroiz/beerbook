@@ -205,6 +205,12 @@
     
 }
 
+#img-box{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
 #info_carousel{ /* INFO TEXT */
     width:310px;
     height:360px;
