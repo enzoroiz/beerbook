@@ -200,9 +200,14 @@
 #image-override-thumb{ /* big left image */
 	width:auto;
     height: auto;
-    max-height: 100px;
     max-width: 100px;
     
+}
+
+#img-box{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
 }
 
 #info_carousel{ /* INFO TEXT */

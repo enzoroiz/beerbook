@@ -25,9 +25,9 @@
                             {% for beer in top_beers %}
                                 <li>
                                     {% if beer.2 != "" %}
-                                        <img src="/media/{{ beer.2 }}" id="image-override-thumb" alt="No picture found">
+                                        <div id="img-box"><img src="/media/{{ beer.2 }}" id="image-override-thumb" alt="No picture found"></div>
                                     {% else %}
-                                        <img src="/media/beer_images/noimage.jpg" id="image-override-thumb" alt="YEH No picture found">
+                                        <div id="img-box"><img src="/media/beer_images/noimage.jpg" id="image-override-thumb" alt="YEH No picture found"></div>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -96,7 +96,7 @@
             {% if recent_events %}
                 <ul class="list-group" style="list-style: none">
                     {% for event in recent_events %}
-                        <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none;">
+                        <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none; font-c">
                         <li class=" panel panel-warning">
 
                                 <div class="panel-heading">
