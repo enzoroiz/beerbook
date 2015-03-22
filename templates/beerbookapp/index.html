@@ -52,7 +52,7 @@
 
                                             <div class="row">
                                                 {% if  beer.4 == null %}
-                                                    <div class="rating-container">Unrated</div>
+                                                    <div class="rating-container">Unrated <i class="fa fa-frown-o"></i></div>
                                                 {% else %}
                                                     <div class="rating-container">
                                                         <input name="star-{{ beer.0 }}" type="radio" class="star" disabled="disabled" {% if beer.4 == 1 %}checked="checked"{% endif %}/>

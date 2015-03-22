@@ -100,14 +100,14 @@
 							
 							
 							<div class="col-md-8">
-								{{ beer.2|truncatechars:"250" }}
-								<strong> See details.</strong>
+								{{ beer.2|truncatechars:"150" }}
+								<br><br><strong> more ...</strong>
 							</div>
 							
 							
 							<div class="col-md-2">											
 								{% if beer.3 == null %}
-									<div class="rating-container">Unrated <i class="fa fa-adjust"></i></div>
+									<div class="rating-container">Unrated <i class="fa fa-frown-o"></i></div>
 								{% else %}
 								<div class="rating-container">
 								<input name="star-{{ beer.1 }}" type="radio" class="star" disabled="disabled" {% if beer.3 == 1 %}checked="checked"{% endif %}/>
@@ -122,9 +122,6 @@
 						</p><br>
 					</a>
 					
-					{% comment %} <!--  ********************************************  comment START -->
-					
-					{% endcomment %} <!--  ******************************************** comment END -->
 				{% endfor %}
 			{% else %}
 				<strong>No beers matching the criteria found</strong>

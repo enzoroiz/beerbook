@@ -32,7 +32,7 @@
 					<br><br>
 					<div class="row">						
 						{% if rating == null %}
-							<div class="rating-container">Unrated</div>
+							<div class="rating-container">Unrated <i class="fa fa-frown-o"></i></div>
 						{% else %}
 							<div class="rating-container">
 							<input name="star-{{ beer.name }}" type="radio" class="star" disabled="disabled" {% if rating == 1 %}checked="checked"{% endif %}/>
@@ -53,7 +53,8 @@
 								{% if rated == True %}
 									<strong > <i class="fa fa-exclamation-triangle"></i>You already rated!</strong>
 								{% else %}
-									<button id="rate-btn" class="btn-sm btn-primary">Rate It!</button>
+									
+									<button id="rate-btn" class="btn btn-success"><i class="fa fa-star"></i> Rate It!</button>
 								{% endif %}
 							</div>
 						{% endif %}
@@ -177,7 +178,7 @@
 						<!-- buttons -->
 						<div class="col-md-5">
 							 
-							<button data-beerslug="{{ beer.slug }}" data-user="{{ user.get_username }}" id="rate-btn-add" class="btn-sm btn-primary">Add</button>
+							<button data-beerslug="{{ beer.slug }}" data-user="{{ user.get_username }}" id="rate-btn-add" class="btn-sm btn-success">Add</button>
 											
 							<button id="rate-btn-cancel" class="btn-sm btn-default">Cancel</button>
 						</div>

@@ -13,8 +13,6 @@ $('#textDesc').keyup(function () {
 });
 
 
-
-
 $(document).ready( function() {
 
     $("#rate-btn").click( function(event) {
@@ -31,6 +29,9 @@ $(document).ready( function() {
 			
 		});
     });
+    
+    $("#rate-btn-cancel").click( function(event) {
+		$( "#rate-popup" ).dialog('close')});
     
     $("#rate-btn-add").click( function(event) {
 			
@@ -58,8 +59,7 @@ $(document).ready( function() {
 																		user +
 																		" - " + $.datepicker.formatDate('dd M yy' , new Date()) +
 																		"</p></div>" );
-											$( "#rate-btn" ).hide();
-																		
+											$( "#rate-btn" ).hide();																		
 											
 											});
 										
@@ -68,13 +68,7 @@ $(document).ready( function() {
 		
 		$( "#rate-popup" ).dialog('close');
 		
-		});
-    
-    
-    $("#rate-btn-cancel").click( function(event) {
-		$( "#rate-popup" ).dialog('close')});
-		
-
+		}); 
 
 
 });

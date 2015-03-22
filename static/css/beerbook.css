@@ -179,13 +179,13 @@ html{
 
 
 
-/* ****************************************************  DIALOB BOX STYLING  ******** */
+/* ****************************************************  DIALOG BOX STYLING  ******** */
 
 
 
 .ui-widget-content { /** dialog inside background **/
-    background: #E5E4E2;
-    border: 2px solid #772953;
+    background: #FFFFFF;
+    border: 2px solid #38B44A;
     color: #222222;
 }
 
@@ -204,7 +204,7 @@ html{
 
 
 .ui-widget-header {
-    background: #772953;
+    background: #38B44A;
     border: 5;
     color: #fff;
     font-weight: bold;
