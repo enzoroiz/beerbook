@@ -216,5 +216,12 @@ html{
         font-size: 1em;
 }
 
-
-
+.description-list{
+	width: 100px;
+	height: 100px;
+	position: relative;
+	float: left;
+	border-style: outset;
+	border-width: 5px;
+	border-color: #DD4814;
+}
