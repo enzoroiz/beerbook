@@ -4,6 +4,16 @@
 
 {% block title %}Home{% endblock %}
 
+
+
+{% block scripts %}
+<!-- Carousel -->
+    <link rel="stylesheet" type="text/css" href="{% static "css/carousel.css" %}">
+    <script type="text/javascript" src="http://sorgalla.com/jcarousel/dist/jquery.jcarousel.min.js"></script>
+    <script type="text/javascript" src="http://sorgalla.com/jcarousel/examples/connected-carousels/jcarousel.connected-carousels.js"></script>
+{% endblock %}
+
+
 {% block body_block %}
     <div class="col-md-8">
         <div class="connected-carousels" style=" background: #f5f5f5;">

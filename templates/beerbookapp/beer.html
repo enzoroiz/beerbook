@@ -2,6 +2,10 @@
 
 {% load staticfiles %}
 
+{% block scripts %}
+<script src="{% static "js/beerbook-add-rating.js" %}"></script>
+{% endblock %}
+
 {% load easy_maps_tags %}
 
 {% block body_block %}

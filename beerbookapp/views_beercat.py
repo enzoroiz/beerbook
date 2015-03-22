@@ -19,7 +19,7 @@ def add_rating(request):
 
     if request.method == 'GET':
 
-        # print request.GET
+
         beer_name_slug = request.GET['beer_slug_val']
         username = request.user.username
         rating = request.GET['rating_val']
@@ -93,7 +93,7 @@ def beer_catalogue(request):
 
     if request.method == 'POST':
 
-        # print request.POST
+
 
         search_beer_name = request.POST.get('beername', None)
         search_beer_type = request.POST.get('beertype', 'none')
@@ -109,9 +109,6 @@ def beer_catalogue(request):
             query_result = cursor.fetchall()
         finally:
             cursor.close()
-
-        # print "\n"
-        # print query_result
 
         beer_types = BeerType.objects.all()
         context_dict['beer_types'] = beer_types
@@ -139,7 +136,7 @@ def beer_catalogue(request):
         try:
             cursor.execute(query_string)
             query_result = cursor.fetchall()
-            print query_result
+
         finally:
             cursor.close()
 
