@@ -4,7 +4,6 @@
 
 {% block scripts %}
 <script src="{% static "js/beerbook-add-rating.js" %}"></script><!-- editor fix -->
-
 {% endblock %}
 
 {% load easy_maps_tags %}
@@ -151,10 +150,11 @@
 					
 					<div class="row">						
 						<!-- reviev input -->
-						<textarea style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
+						<textarea id="textDesc" style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
+						<span class="help-block"> <div id="charNum">(255 characters left)</div></span>
 					</div>
 					
-					<br>
+					
 					
 					<div class="row">
 						
@@ -168,6 +168,11 @@
 								<input name="add-rating" value="5" type="radio" class="star"/>
 							</div>									
 						</div>	
+						
+						
+						<div class="col-md-2">
+							<!-- EMPTY -->
+						</div>
 						
 						<!-- buttons -->
 						<div class="col-md-5">

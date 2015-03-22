@@ -70,7 +70,7 @@
 }
 
 .connected-carousels .carousel-navigation li.active img { /** upper border selected image **/
-    border-color: #772953;
+    border-color: #E5E4E2;
 }
 
 /** Stage carousel controls **/
@@ -212,9 +212,9 @@
 	margin-top:10px;	
 	padding-left:10px;
 	padding-right:10px;
-	background-color:#ffffff;
+	background-color:#E5E4E2;
 	border-style: solid;
-	border-width: 5px; 
+	border-width: 0px; 
 	border-color: #DD4814;
 	border-radius: 15px;
 }

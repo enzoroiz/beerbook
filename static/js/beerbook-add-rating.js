@@ -1,3 +1,20 @@
+
+$(function() {
+$('#textDesc').keyup(function () {
+		  var max = 255;
+		  var len = $(this).val().length;
+		  if (len >= max) {
+			$('#charNum').text(' you have reached the limit');
+		  } else {
+			var char = max - len;
+			$('#charNum').text('(' + char + ' characters left)');
+		  }
+	});
+});
+
+
+
+
 $(document).ready( function() {
 
     $("#rate-btn").click( function(event) {
@@ -10,18 +27,9 @@ $(document).ready( function() {
 			title: 'Add Rating!',
 			show: {effect: 'scale', duration: 200},
 			hide: {effect: 'puff', duration: 200},
-			//dialogClass: 'rat',
+			dialogClass: 'rating-pop',
 			
 		});
-		//$(".rat .ui-dialog-title").css("font-size", "5px");
-		//$(".rat .ui-widget-content").css("background-color", "#F8F8F8");
-		//$(".rat .ui-widget-content").css("border", "5px solid #DD4814");
-		//$(".rat .ui-dialog-titlebar").css("display", "none");
-		//$(".rat .ui-widget-content").css("padding", "0px");		
-		//$(".rat .ui-widget-header").css("color", "white");	
-		//$(".rat .ui-widget-header").css("border", "none");		
-		//$(".rat .ui-dialog-titlebar").css("background", "#DD4814");		
-		
     });
     
     $("#rate-btn-add").click( function(event) {
