@@ -42,6 +42,7 @@ html{
 .resized-form {
 	width: 450px;
 	margin-bottom: 25px;
+	float: left
 }
 
 #beer-content {
@@ -60,11 +61,22 @@ html{
 	padding-left:7px;
 }
 
-.thumbnail {
+#user-profile.thumbnail {
+	width:350px;
+	height:350px;
+	float: left;
+}
+
+#description-list.thumbnail {
 	width: 100px;
 	height: 100px;
 	position: relative;
 	float: left;
+}
+
+.thumbnail img {
+	width: 100%;
+	height: 100%;
 }
 
 #image-list.list-group-item {
