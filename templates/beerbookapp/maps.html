@@ -15,7 +15,7 @@
         class="easy-map-googlemap">
         {% block noscript %}
         <noscript>
-        <img alt="Map of {{ map.address }}" src="https://maps.google.com/maps/api/staticmap?center={{ lat }},{{ long }}&zoom={{ zoom }}&markers={{ lat }},{{ long }}&size={{ width }}x{{ height }}&sensor=false">
+        <img alt="Map of {{ map.address }}" src="https://maps.google.com/maps/api/staticmap?center={{ lat }},{{ long }}&amp;zoom={{ zoom }}&amp;markers={{ lat }},{{ long }}&amp;size={{ width }}x{{ height }}&amp;sensor=false">
         </noscript>
         {% endblock noscript %}
         {% if map.geocode_error %}<!-- geocoding error -->{% endif %}
