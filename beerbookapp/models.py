@@ -35,7 +35,10 @@ def file_rename(instance, filename):
     filename = "%s_%s%s" % (instance.user.pk, instance.user.username, extension)
     return os.path.join(upload_path, filename)
 
-class UserProfile(models.Model):   
+class UserProfile(models.Model):
+
+
+
     def __unicode__(self):
         return self.user.username    
     
@@ -43,8 +46,9 @@ class UserProfile(models.Model):
     user = models.OneToOneField(User)
 
     # The additional attributes we wish to include.
+    bio = models.CharField(max_length=255, blank=True, default="")
     website = models.URLField(blank=True)
-    picture = models.ImageField(upload_to=file_rename, blank=True,default='profile_images/default.png')
+    picture = models.ImageField(upload_to=file_rename, blank=True, default='profile_images/default.png')
 
 
 
