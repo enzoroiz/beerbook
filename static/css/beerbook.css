@@ -109,13 +109,13 @@ html{
     height: 150px; /* .push must be the same height as .footer */
 }
 
-#social:hover {
+.social:hover {
 	-webkit-transform: scale(1.1);
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);
 }
 
-#social {
+.social {
 	-webkit-transform: scale(0.8);
 	/* Browser Variations: */
 	-moz-transform: scale(0.8);
