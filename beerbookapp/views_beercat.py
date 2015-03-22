@@ -47,7 +47,7 @@ def beer(request, beer_name_slug):
     try:
         this_beer = Beer.objects.get(slug=beer_name_slug)
 
-        query_string = """select P.name, L.latitude, L.longitude
+        query_string = """select P.name, L.latitude, L.longitude, P.description
                         from beerbookapp_Pub P
                         join beerbookapp_PubStockItem S
                         on S.stocked_at_id=P.id

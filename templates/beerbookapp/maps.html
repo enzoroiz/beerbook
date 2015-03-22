@@ -26,8 +26,27 @@
     <!-- Map creation script -->
     <script type="text/javascript">
         function initialize_map_{{ map.pk }}() {
+        	var j;
+        	var locations = new Array({{ locations|length }})
         	//Customized maps
-
+			{% for location in locations %}
+        		j = {{forloop.counter0}}
+	        	locations[j] = new Array(5);
+	        	locations[j][0] = "{{ location.0 }}";
+	        	locations[j][1] = {{ location.1 }};
+	        	locations[j][2] = {{ location.2 }};
+	        	locations[j][3] = "{{ location.3 }}";
+	        	locations[j][4] = '<div id="content">'+
+							            '<div id="siteNotice">'+
+							        		'</div>'+
+							        			'<h1 id="firstHeading" class="firstHeading">' + locations[j][0] + '</h1>'+
+							        			'<div id="bodyContent">'+
+							        			'<p>' + locations[j][3] + '</p>'+
+							        	'</div>'+
+							        '</div>';
+	        	
+        	{% endfor %}
+        	
             //Centered in Glasgow City
             var centrallatlng = new google.maps.LatLng(55.8554602, -4.2324586);
             var mapElem = document.getElementById("map-canvas-{{ map.pk }}");
@@ -40,16 +59,29 @@
             };
             {% endblock %}
 
+            
             var map = new google.maps.Map(mapElem, mapOptions);
-
+            var infowindow = new google.maps.InfoWindow({
+                maxWidth: 150
+            });
+            var i;
+			
             {% block extra_js %}         
 				{% for location in locations %}
-				var latlng = new google.maps.LatLng({{ location.1 }}, {{ location.2 }});
+				i = {{ forloop.counter0 }}
+				var latlng = new google.maps.LatLng(locations[i][1], locations[i][2]);
 					var marker = new google.maps.Marker({
 		                position: latlng,
 		                map: map,
-		                title: "{{ location.0 }}"
+		                title: locations[i][0]
 		            });
+			            
+			            google.maps.event.addListener(marker, 'click', (function(marker, i) {
+			                return function() {
+			                  infowindow.setContent(locations[i][4]);
+			                  infowindow.open(map, marker);
+			                }
+			              })(marker, i));
 	        	{% endfor %}
             {% endblock %}
         }
