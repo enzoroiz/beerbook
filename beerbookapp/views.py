@@ -22,13 +22,13 @@ def index(request):
                 " order by ROUND(AVG(R.rating), 0) desc " \
                 " LIMIT 5"
 
-    sql_query1 =" select E.title, E.datetime, U.username " \
+    sql_query1 =" select E.title, E.datetime, U.username, E.id " \
                 " from beerbookapp_Event E " \
                 " join auth_user U " \
                 " on E.owner_id = U.id " \
                 " where E.datetime > date('now') " \
                 " order by E.datetime " \
-                " LIMIT 3"
+                " LIMIT 4"
 
     cursor = connection.cursor()
 
