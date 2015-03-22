@@ -22,13 +22,13 @@ def index(request):
                 " order by ROUND(AVG(R.rating), 0) desc " \
                 " LIMIT 5"
 
-    sql_query1 =" select E.title, E.datetime, U.username " \
+    sql_query1 =" select E.title, E.datetime, U.username, E.id " \
                 " from beerbookapp_Event E " \
                 " join auth_user U " \
                 " on E.owner_id = U.id " \
                 " where E.datetime > date('now') " \
                 " order by E.datetime " \
-                " LIMIT 3"
+                " LIMIT 4"
 
     cursor = connection.cursor()
 
@@ -79,12 +79,18 @@ def profile(request, username):
                     print form.errors
                 return render(request, 'beerbookapp/profile.html', {'userprofile': userprofile, 'act_user': act_user, 'user':act_user, 'form':form})
         else:
+            if 'first_name' in request.POST:
+                act_user.first_name = request.POST['first_name']
+            if 'last_name' in request.POST:
+                act_user.last_name = request.POST['last_name']
             if 'email' in request.POST:
                 act_user.email = request.POST['email']
             if 'website' in request.POST:
                 userprofile.website = request.POST["website"]
             if 'picture' in request.FILES:
                 userprofile.picture = request.FILES["picture"]
+            if 'bio' in request.POST:
+                userprofile.bio = request.POST["bio"]
             
             userprofile.save()
             act_user.save()
@@ -106,8 +112,12 @@ def change_password(request):
 
 @login_required
 def users_profiles(request):
+    userprofile_list = []
     user_list = User.objects.all().order_by('id')
-    userprofile_list = UserProfile.objects.all().order_by('user')
+    for user in user_list:
+        userprofile, created = UserProfile.objects.get_or_create(user=user)
+        userprofile_list.append(userprofile)
+        print userprofile.bio
 
     user_data = zip(user_list, userprofile_list)
     return render(request, 'beerbookapp/users_profiles.html', {'user_list' : user_list, 'user_data' : user_data})

@@ -44,6 +44,12 @@ html{
 
 }
 
+.resized-form {
+	width: 450px;
+	margin-bottom: 25px;
+	float: left
+}
+
 #beer-content {
 	height:420px;
 }
@@ -69,7 +75,13 @@ html{
 	
 }
 
-.thumbnail {
+#user-profile.thumbnail {
+	width:350px;
+	height:350px;
+	float: left;
+}
+
+#description-list.thumbnail {
 	width: 100px;
 	height: 100px;
 	position: relative;
@@ -77,6 +89,11 @@ html{
 	border-style: outset;
 	border-width: 5px; 
 	border-color: #DD4814;
+}
+
+.thumbnail img {
+	width: 100%;
+	height: 100%;
 }
 
 #image-list.list-group-item {

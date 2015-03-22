@@ -89,7 +89,7 @@
 							<p class="list-group-item-text">
 							
 							
-							<div class="thumbnail">
+							<div id="description-list" class="thumbnail">
 								{% if beer.4 != "" %}
 									<img src="/media/{{ beer.4 }}" alt="No picture found">
 								{% else %}
@@ -100,7 +100,7 @@
 							
 							
 							<div class="col-md-8">
-								{{ beer.2|truncatewords:"50" }}
+								{{ beer.2|truncatechars:"250" }}
 								<strong> See details.</strong>
 							</div>
 							

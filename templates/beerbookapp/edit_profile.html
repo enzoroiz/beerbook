@@ -1,9 +1,45 @@
-<form id="edit_form" role="form" method="post" action="." enctype="multipart/form-data">
+<form id="edit_form" class="resized-form" role="form" method="post" action="." enctype="multipart/form-data">
 	{% csrf_token %}
 	
 	{% for error in form.non_field_errors %}
 		<p>{{error}}</p>
 	{% endfor %}
+	
+	{% if form.first_name.errors %}
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			<label for="id_first_name">First Name:</label> <input
+				class="form-control" id="id_first_name" maxlength="30" name="first_name"
+				type="text" placeholder="{% for error in form.first_name.errors %}{{ error }} {% endfor %}" required/>
+		</p>
+	</div>
+	{% else %}
+	<div class="form-group">
+		<p class="required">
+			<label for="id_first_name">First Name:</label> <input
+				class="form-control" id="id_first_name" maxlength="30" name="first_name"
+				type="text" placeholder="Enter your first name" value="{{ user.first_name }}" required/>
+		</p>
+	</div>
+	{% endif %}
+	
+	{% if form.last_name.errors %}
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			<label for="id_last_name">Last Name:</label> <input
+				class="form-control" id="id_last_name" maxlength="30" name="last_name"
+				type="text" placeholder="{% for error in form.last_name.errors %}{{ error }} {% endfor %}" required/>
+		</p>
+	</div>
+	{% else %}
+	<div class="form-group">
+		<p class="required">
+			<label for="id_last_name">Last Name:</label> <input
+				class="form-control" id="id_last_name" maxlength="30" name="last_name"
+				type="text" placeholder="Enter your last name" value="{{ user.last_name }}" required/>
+		</p>
+	</div>
+	{% endif %}
 	
 	{% if form.email.errors %}
 	<div class="form-group has-warning has-feedback">
@@ -34,14 +70,32 @@
 		<p class="required">
 			<label for="id_website">Website:</label> <input
 				class="form-control" id="id_website" name="website"
-				type="url" placeholder="Website" value="{{userprofile.website}}"/>
+				type="url" placeholder="Website" value="{{ userprofile.website }}"/>
+		</p>
+	</div>
+	{% endif %}
+	<label for="id_picture">Picture:</label>
+	<input id="id_picture" name="picture" type="file" class="btn btn-file btn-default"><br/>
+	
+	{% if form.bio.errors %}
+	<label for="id_bio">Bio:</label>
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			 <textarea class="form-control" maxlength="255" rows="5" name="bio" id="id_bio"
+			 placeholder="{% for error in form.bio.errors %}{{ error }} {% endfor %}" ></textarea>
+		</p>
+	</div>
+	{% else %}
+	<label for="id_bio">Bio:</label>
+	<div class="form-group">
+		<p class="required">
+			 <textarea class="form-control" maxlength="255" rows="5" name="bio" id="id_bio"
+			 placeholder="{% for error in form.bio.errors %}{{ error }} {% endfor %}" >{{ userprofile.bio }}</textarea>
 		</p>
 	</div>
 	{% endif %}
 	
-	<input id="id_picture" name="picture" type="file" class="btn btn-file btn-default"><br/>
-	
-	<input id="save" class="btn btn-primary" type="submit" name="submit" value="Save Changes" />
+	<br/><input id="save" class="btn btn-primary" type="submit" name="submit" value="Save Changes" />
  	
 	<input id="cancel" class="btn btn-primary" type="button" name="cancel" value="Cancel" />
 </form>

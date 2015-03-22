@@ -19,6 +19,8 @@ class MyRegistrationView(RegistrationView):
             user.first_name = request.POST["first_name"]
         if 'last_name' in request.POST:
             user.last_name = request.POST["last_name"]
+        if 'bio' in request.POST:
+            profile.bio = request.POST["bio"]
             
         user.save()
         profile.save()

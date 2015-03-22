@@ -96,16 +96,19 @@
             {% if recent_events %}
                 <ul class="list-group" style="list-style: none">
                     {% for event in recent_events %}
+                        <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none;">
                         <li class=" panel panel-warning">
-                            <div class="panel-heading">
-                                <h4 class="list-group-item-heading panel-title">{{ event.0 }}</h4>
-                            </div>
 
-                            <div class="panel-content">
-                                <p class="list-group-item-text panel-body"> {{ event.1|date:"d M Y" }} at  {{event.1|date:" h:m" }}
-                                    <strong class="list-group-item-text" >   - {{ event.2 }}</strong></p>
-                            </div>
+                                <div class="panel-heading">
+                                    <h4 class="list-group-item-heading panel-title" style="text-transform: uppercase; text-align: center">{{ event.0 }}</h4>
+                                </div>
+
+                                <div class="panel-content">
+                                    <p class="list-group-item-text panel-body"> {{ event.1|date:"d M Y" }} at  {{event.1|date:" h:m" }}
+                                        <strong class="list-group-item-text" >   - {{ event.2 }}</strong></p>
+                                </div>
                         </li>
+                        </a>
                     {% endfor %}
                 </ul>
             {% else %}
