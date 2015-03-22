@@ -15,7 +15,12 @@ class MyRegistrationView(RegistrationView):
             profile.website = request.POST["website"]
         if 'picture' in request.FILES:
             profile.picture = request.FILES["picture"]
-            print profile.picture
+        if 'first_name' in request.POST:
+            user.first_name = request.POST["first_name"]
+        if 'last_name' in request.POST:
+            user.last_name = request.POST["last_name"]
+            
+        user.save()
         profile.save()
         return '/beerbook/'
     

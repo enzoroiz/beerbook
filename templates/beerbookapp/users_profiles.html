@@ -1,0 +1,36 @@
+{% extends 'beerbookapp/base.html' %}
+
+{% load staticfiles %}
+
+{% block title %}Users Profiles{% endblock %}
+
+{% block body_block %}
+<div class="page-header">
+	<h1>Users Profiles</h1>
+</div>
+
+<div class="panel">
+	{% if user_data %}
+	<div class="panel-heading">
+		<!-- Display search results in an ordered list -->
+		<div class="panel-body">
+			<div class="list-group">
+				{% for data in user_data %}
+				<a
+					href="{% url 'profile' data.0.username %}" id="image-list"
+					class="list-group-item">
+					<h4 class="list-group-item-heading">{{ data.0.username }}</h4>
+
+					<div class="thumbnail">
+						<img src="/media/{{ data.1.picture }}" alt="No picture found">
+					</div>
+			</a>
+			{% endfor %}
+		</div>
+	</div>
+</div>
+	{% else %}
+		<p>There are no users for the site.</p>
+	{% endif %}
+</div>
+{% endblock %}

@@ -13,6 +13,42 @@
 		<p>{{error}}</p>
 	{% endfor %}
 	
+	{% if form.first_name.errors %}
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			<label for="id_first_name">First Name:</label> <input
+				class="form-control" id="id_first_name" maxlength="30" name="first_name"
+				type="text" placeholder="{% for error in form.first_name.errors %}{{ error }} {% endfor %}" />
+		</p>
+	</div>
+	{% else %}
+	<div class="form-group">
+		<p class="required">
+			<label for="id_first_name">First Name:</label> <input
+				class="form-control" id="id_first_name" maxlength="30" name="first_name"
+				type="text" placeholder="Enter your first name" />
+		</p>
+	</div>
+	{% endif %}
+	
+	{% if form.last_name.errors %}
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			<label for="id_last_name">Last Name:</label> <input
+				class="form-control" id="id_last_name" maxlength="30" name="last_name"
+				type="text" placeholder="{% for error in form.last_name.errors %}{{ error }} {% endfor %}" />
+		</p>
+	</div>
+	{% else %}
+	<div class="form-group">
+		<p class="required">
+			<label for="id_last_name">Last Name:</label> <input
+				class="form-control" id="id_last_name" maxlength="30" name="last_name"
+				type="text" placeholder="Enter your last name" />
+		</p>
+	</div>
+	{% endif %}
+	
 	{% if form.username.errors %}
 	<div class="form-group has-warning has-feedback">
 		<p class="required">

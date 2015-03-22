@@ -62,7 +62,7 @@ html{
 	float: left;
 }
 
-a.list-group-item {
+#image-list.list-group-item {
 	height:150px;
 }
 

@@ -102,3 +102,12 @@ def change_password(request):
     user = request.user
     userprofile = UserProfile.objects.get(user=user)
     return render(request, 'beerbookapp/change_password.html', {'user':user, 'userprofile':userprofile})
+
+@login_required
+def users_profiles(request):
+    user_list = User.objects.all().order_by('id')
+    userprofile_list = UserProfile.objects.all().order_by('user')
+    print user_list
+    print userprofile_list
+    user_data = zip(user_list, userprofile_list)
+    return render(request, 'beerbookapp/users_profiles.html', {'user_list' : user_list, 'user_data' : user_data})
