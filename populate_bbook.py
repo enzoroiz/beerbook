@@ -161,6 +161,7 @@ def populate():
     add_user("bob", "Bob", "Bobton", "bob")
     add_user("simon", "Simon", "Beerlover", "simon")
     add_user("george", "George", "Partyanimal", "george")
+    add_user("test", "Tester", "Testington", "test")
 
     # events ******************************************************************************************
     owner = add_user("george", "George", "Partyanimal", "george")

@@ -50,7 +50,7 @@ html{
 	float: left
 }
 
-#beer-content {
+.beer-content {
 	height:420px;
 }
 
@@ -81,7 +81,7 @@ html{
 	float: left;
 }
 
-#description-list.thumbnail {
+.description-list{
 	width: 100px;
 	height: 100px;
 	position: relative;
@@ -96,7 +96,7 @@ html{
 	height: 100%;
 }
 
-#image-list.list-group-item {
+.image-list{
 	height:150px;
 }
 
@@ -109,13 +109,13 @@ html{
     height: 150px; /* .push must be the same height as .footer */
 }
 
-#social:hover {
+.social:hover {
 	-webkit-transform: scale(1.1);
 	-moz-transform: scale(1.1);
 	-o-transform: scale(1.1);
 }
 
-#social {
+.social {
 	-webkit-transform: scale(0.8);
 	/* Browser Variations: */
 	-moz-transform: scale(0.8);
@@ -216,5 +216,12 @@ html{
         font-size: 1em;
 }
 
-
-
+.description-list{
+	width: 100px;
+	height: 100px;
+	position: relative;
+	float: left;
+	border-style: outset;
+	border-width: 5px;
+	border-color: #DD4814;
+}

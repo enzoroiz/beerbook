@@ -66,7 +66,7 @@
 		
 		<div class="col-md-5">	<!-- ******************************************** DATA PANEL -->	
 			<div class="panel panel-primary">
-				<div class="panel-body" id="beer-content">
+				<div class="panel-body beer-content">
 					<div class="row">
 						<div class="col-md-3">
 							<p>Type:</p>
@@ -100,7 +100,7 @@
 							{{ beer.introduced|date:"Y" }}
 						</div>
 					</div>										
-					<div id="beer-desc" class="row">						
+					<div class="row">
 						<div style="height:200px;padding:10px;border:1px solid #ccc;overflow:auto;">{{ beer.description }}</div>						
 					</div>
 					<br>
@@ -111,7 +111,7 @@
 		
 		<div class="col-md-4">	<!-- ******************************************** MAP PANEL -->		 
 				<div class="panel panel-primary">							
-					<div class="panel-body" id="beer-content">
+					<div class="panel-body beer-content">
 						{% easy_map "none" 100% 393 10 using 'beerbookapp/maps.html' %}
 					</div>								
 				</div>		
@@ -152,7 +152,7 @@
 					<div class="row">						
 						<!-- reviev input -->
 						<textarea id="textDesc" style="resize:none" class="form-control" name="rate-text" maxlength="255" placeholder="Write a short reviev max 255 characters (Optional)" cols="40" rows ="5"></textarea>
-						<span class="help-block"> <div id="charNum">(255 characters left)</div></span>
+						<div class="help-block"> <div id="charNum">(255 characters left)</div></div>
 					</div>
 					
 					
@@ -162,7 +162,7 @@
 						<!-- rating -->	
 						<div class="col-md-5">							
 							<div class="rating-container">									
-								<input class="star required" name="add-rating" checked="checked" value="1" type="radio" class="star"/>							
+								<input class="star required" name="add-rating" checked="checked" value="1" type="radio"/>
 								<input name="add-rating" value="2" type="radio" class="star"/>
 								<input name="add-rating" value="3" type="radio" class="star"/>
 								<input name="add-rating" value="4" type="radio" class="star"/> 
@@ -185,7 +185,7 @@
 					</div>
 				
 			</fieldset>
-		</div>
+		</form>
 	</div>	
 </div>
 

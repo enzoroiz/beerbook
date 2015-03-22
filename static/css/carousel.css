@@ -173,7 +173,7 @@
 
 /** CUSTON **/
 
-#slide{ /* Background for info + image */
+.slide{ /* Background for info + image */
 	width: 600px;
     height:400px;
     background: #ffffff;    
@@ -181,7 +181,7 @@
     padding-top: 0;
 }
 
-#image{
+.image{
 	width:250px;
 	padding-top: 30px;
 	padding-bottom: 30px;
@@ -189,7 +189,7 @@
 	float:left;
 }
 
-#image-override{ /* big left image */
+.image-override{ /* big left image */
 	width:auto;
     height: auto;
     max-height: 250px;
@@ -197,20 +197,20 @@
     
 }
 
-#image-override-thumb{ /* big left image */
+.image-override-thumb{ /* big left image */
 	width:auto;
     height: auto;
     max-width: 100px;
     
 }
 
-#img-box{
+.img-box{
     width: 100px;
     height: 100px;
     overflow: hidden;
 }
 
-#info_carousel{ /* INFO TEXT */
+.info_carousel{ /* INFO TEXT */
     width:310px;
     height:360px;
 	float:right;
@@ -224,11 +224,11 @@
 	border-radius: 15px;
 }
 
-#info_carousel h1{
+.info_carousel h1{
     margin: 55px auto;
 }
 
-#info_carousel a{
+.info_carousel a{
     margin: 30px 85px;
 }
 

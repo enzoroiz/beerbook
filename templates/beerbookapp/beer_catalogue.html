@@ -84,12 +84,12 @@
 					</a>						
 			{% elif beer_list %}
 				{% for beer in beer_list %}	
-					<a href="/beerbook/beer_catalogue/{{ beer.0 }}" id="image-list" class="list-group-item">
+					<a href="/beerbook/beer_catalogue/{{ beer.0 }}" class="list-group-item image-list">
 						<h4 class="list-group-item-heading">{{ beer.1 }}</h4>								
-							<p class="list-group-item-text">
+							<div class="list-group-item-text">
 							
 							
-							<div id="description-list" class="thumbnail">
+							<div class="thumbnail description-list">
 								{% if beer.4 != "" %}
 									<img src="/media/{{ beer.4 }}" alt="No picture found">
 								{% else %}
@@ -119,7 +119,7 @@
 								{% endif %}
 							</div>
 							
-						</p><br>
+						</div><br>
 					</a>
 					
 				{% endfor %}

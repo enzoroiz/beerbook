@@ -147,8 +147,17 @@ class Rating(models.Model):
     owner = models.ForeignKey(User)
     rated_beer = models.ForeignKey(Beer)
 
+    def save(self, *args, **kwargs):
+        if 0 <= self.rating <= 5:
+            super(Rating, self).save(*args, **kwargs)
+        else:
+            return
+
     class Meta:
         unique_together = ('owner', 'rated_beer')
+
+
+
 
 
 class FriendListItem(models.Model):

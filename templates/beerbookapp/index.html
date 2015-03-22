@@ -7,7 +7,7 @@
 
 
 {% block scripts %}
-<!-- Carousel -->
+    <!-- Carousel -->
     <link rel="stylesheet" type="text/css" href="{% static "css/carousel.css" %}">
     <script type="text/javascript" src="http://sorgalla.com/jcarousel/dist/jquery.jcarousel.min.js"></script>
     <script type="text/javascript" src="http://sorgalla.com/jcarousel/examples/connected-carousels/jcarousel.connected-carousels.js"></script>
@@ -25,9 +25,9 @@
                             {% for beer in top_beers %}
                                 <li>
                                     {% if beer.2 != "" %}
-                                        <div id="img-box"><img src="/media/{{ beer.2 }}" id="image-override-thumb" alt="No picture found"></div>
+                                        <div class="img-box"><img src="/media/{{ beer.2 }}" class="image-override-thumb" alt="No picture found"></div>
                                     {% else %}
-                                        <div id="img-box"><img src="/media/beer_images/noimage.jpg" id="image-override-thumb" alt="YEH No picture found"></div>
+                                        <div class="img-box"><img src="/media/beer_images/noimage.jpg" class="image-override-thumb" alt="YEH No picture found"></div>
                                     {% endif %}
                                 </li>
                             {% endfor %}
@@ -42,12 +42,12 @@
                         {% if top_beers %}
                             {% for beer in top_beers %}
                                 <li>
-                                    <div id="slide">
-                                        <div id="image">
+                                    <div class="slide">
+                                        <div class="image">
                                             {% if beer.2 != "" %}
-                                                <img class="img-rounded" id="image-override" src="/media/{{ beer.2 }}" alt="No picture found">
+                                                <img class="image-override" src="/media/{{ beer.2 }}" alt="No picture found">
                                             {% else %}
-                                                <img class="img-rounded" id="image-override" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
+                                                <img class="image-override" src="/media/beer_images/noimage.jpg" alt="YEH No picture found">
                                             {% endif %}
 
                                             <div class="row">
@@ -66,7 +66,7 @@
                                             </div>
                                         </div>
 
-                                        <div id="info_carousel" >
+                                        <div class="info_carousel" >
                                             <h2> {{ beer.1 }} </h2>
                                             <br>
                                             <br>
@@ -96,19 +96,23 @@
             {% if recent_events %}
                 <ul class="list-group" style="list-style: none">
                     {% for event in recent_events %}
-                        <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none; font-c">
+
                         <li class=" panel panel-warning">
 
-                                <div class="panel-heading">
+                            <div class="panel-heading">
+                                <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none;">
                                     <h4 class="list-group-item-heading panel-title" style="text-transform: uppercase; text-align: center">{{ event.0 }}</h4>
-                                </div>
+                                </a>
+                            </div>
 
-                                <div class="panel-content">
+                            <div class="panel-content">
+                                <a href="/beerbook/event_catalogue/{{ event.3 }}" style="text-decoration: none;">
                                     <p class="list-group-item-text panel-body"> {{ event.1|date:"d M Y" }} at  {{event.1|date:" h:m" }}
                                         <strong class="list-group-item-text" >   - {{ event.2 }}</strong></p>
-                                </div>
+                                </a>
+                            </div>
                         </li>
-                        </a>
+
                     {% endfor %}
                 </ul>
             {% else %}
