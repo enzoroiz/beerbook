@@ -4,10 +4,8 @@
 <div class="page-header">
 	<h1>Register Here</h1>
 </div>
-<form role="form" method="post" action="." enctype="multipart/form-data">
+<form class="resized-form" role="form" method="post" action="." enctype="multipart/form-data">
 	{% csrf_token %}
-
-	<h2 class="form-signin-heading">Sign Up Here</h2>
 	
 	{% for error in form.non_field_errors %}
 		<p>{{error}}</p>
@@ -137,9 +135,29 @@
 	</div>
 	{% endif %}
 	
+	<label for="id_picture">Picture:</label>
 	<input id="id_picture" name="picture" type="file" class="btn btn-file btn-default"><br/>
 	
-	<button id="id_picture" name="picture" type="submit" class="btn btn-primary">Submit</button>
+	{% if form.bio.errors %}
+	<label for="id_bio">Bio:</label>
+	<div class="form-group has-warning has-feedback">
+		<p class="required">
+			 <textarea class="form-control" maxlength="255" rows="5" name="bio" id="id_bio"
+			 placeholder="{% for error in form.bio.errors %}{{ error }} {% endfor %}" ></textarea>
+		</p>
+	</div>
+	{% else %}
+	<label for="id_bio">Bio:</label>
+	<div class="form-group">
+		<p class="required">
+			 <textarea class="form-control" maxlength="255" rows="5" name="bio" id="id_bio"
+			 placeholder="{% for error in form.bio.errors %}{{ error }} {% endfor %}" ></textarea>
+		</p>
+	</div>
+	{% endif %}
+	
+	
+	<br/><button id="id_picture" name="submit" type="submit" class="btn btn-primary">Submit</button>
 
 </form>
 {% endblock %}

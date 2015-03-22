@@ -39,6 +39,11 @@ html{
 
 }
 
+.resized-form {
+	width: 450px;
+	margin-bottom: 25px;
+}
+
 #beer-content {
 	height:420px;
 }

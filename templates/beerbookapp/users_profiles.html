@@ -19,12 +19,16 @@
 				<a
 					href="{% url 'profile' data.0.username %}" id="image-list"
 					class="list-group-item">
-					<h4 class="list-group-item-heading">{{ data.0.username }}</h4>
+					<h4 class="list-group-item-heading">{{ data.0.first_name }} {{data.0.last_name}}</h4>
 
 					<div class="thumbnail">
 						<img src="/media/{{ data.1.picture }}" alt="No picture found">
 					</div>
-			</a>
+					
+					<div class="col-md-10">
+						{{ data.1.bio }} 
+					</div>
+				</a>
 			{% endfor %}
 		</div>
 	</div>
