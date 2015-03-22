@@ -165,7 +165,7 @@ def populate():
     # events ******************************************************************************************
     owner = add_user("george", "George", "Partyanimal", "george")
 
-    desc = "Everybody's invited!\n Come and join us at The Ben Navis Bar on next Friday."
+    desc = "Everybody's invited! Come and join us at The Ben Navis Bar on next Friday."
     location = add_location(city, "The Ben Navis", 55.864, -4.284, "GB")
     # title, event_datetime, description, owner, location
     add_event("Friday Drinking!", datetime_me("11/11/2015 12:12"), desc, owner, location)

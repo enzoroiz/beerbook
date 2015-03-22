@@ -36,6 +36,7 @@
 	        	locations[j][1] = {{ location.1 }};
 	        	locations[j][2] = {{ location.2 }};
 	        	locations[j][3] = "{{ location.3 }}";
+	        	locations[j][3] = "" + locations[j][3].replace("\n", ''); + ""
 	        	locations[j][4] = '<div id="content">'+
 							            '<div id="siteNotice">'+
 							        		'</div>'+

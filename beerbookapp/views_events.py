@@ -73,10 +73,20 @@ def add_event(request):
 
 def event(request, event_id):
     context_dict = {}
-
+    locations = []
+    details = []
     try:
         this_event = Event.objects.get(id=event_id)
+        location = Location.objects.get(name=this_event.location)
+        
+        details.append(location.name)
+        details.append(location.latitude)
+        details.append(location.longitude)
+        details.append(this_event.description)
+        locations.append(details)
+        
         context_dict['event'] = this_event
+        context_dict['locations'] = locations
     except:
         pass
 

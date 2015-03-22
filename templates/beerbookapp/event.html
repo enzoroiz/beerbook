@@ -2,6 +2,8 @@
 
 {% load staticfiles %}
 
+{% load easy_maps_tags %}
+
 
 {% block body_block %}
 
@@ -104,24 +106,21 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-md-3"></div>		
-	</div>
-	
-	<div class="row"> <!-- ************************** HOST -->
-		<div class="col-md-6 col-md-offset-3">
-			<div class="col-md-3">
-			</div>			
-			<div class="col-md-9"><FORM><INPUT Type="button" style="float: right;" class="btn-lg btn-primary" VALUE="Back" onClick="history.go(-1);return true;"></FORM>				
+		<div class="row">
+			<!-- ************************** MAP -->
+			<div class="col-md-6 col-md-offset-3">
+				<div class="panel panel-primary">
+					<div class="panel-body" id="beer-content">{% easy_map "none" 100% 393 10 using 'beerbookapp/maps.html' %}</div>
+				</div>
 			</div>
 		</div>
-		<div class="col-md-3">
-			
-		</div>		
 	</div>
-	
-	
-	
-	
+
+
+
+
+
+
 	{% else %}
 		<strong>Event not found</strong>
 	{% endif %}
