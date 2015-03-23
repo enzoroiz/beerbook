@@ -35,14 +35,12 @@
 	        	locations[j][0] = "{{ location.0 }}";
 	        	locations[j][1] = {{ location.1 }};
 	        	locations[j][2] = {{ location.2 }};
-	        	locations[j][3] = "{{ location.3 }}";
-	        	locations[j][3] = "" + locations[j][3].replace("\n", ''); + ""
+	        	locations[j][3] = "<p>" + locations[j][3] + "</p>" 
 	        	locations[j][4] = '<div id="content">'+
 							            '<div id="siteNotice">'+
 							        		'</div>'+
 							        			'<h1 id="firstHeading" class="firstHeading">' + locations[j][0] + '</h1>'+
-							        			'<div id="bodyContent">'+
-							        			'<p>' + locations[j][3] + '</p>'+
+							        			'<div id="bodyContent">' + locations[j][3] +
 							        	'</div>'+
 							        '</div>';
 	        	
