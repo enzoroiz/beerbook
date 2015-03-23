@@ -117,7 +117,6 @@ def users_profiles(request):
     for user in user_list:
         userprofile, created = UserProfile.objects.get_or_create(user=user)
         userprofile_list.append(userprofile)
-        print userprofile.bio
 
     user_data = zip(user_list, userprofile_list)
     return render(request, 'beerbookapp/users_profiles.html', {'user_list' : user_list, 'user_data' : user_data})

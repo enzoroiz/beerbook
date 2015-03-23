@@ -44,7 +44,11 @@ def add_event(request):
                 this_event.title = title
                 this_event.description = desc
                 this_event.save()
-                return HttpResponseRedirect('beerbook/event_catalogue/' + str(this_event.id))
+
+                response = HttpResponseRedirect('/beerbook/event_catalogue/' + str(this_event.id))
+                # print response
+
+                return response
             else:
                 response = render(request, 'beerbookapp/add_event.html', {'ev_error': 'Event already exists'})
                 return response
