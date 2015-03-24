@@ -62,7 +62,11 @@ class Beer(models.Model):
 
     # relationships
     type = models.ForeignKey(BeerType)
-    producer = models.ForeignKey(BeerProducer)    
+    producer = models.ForeignKey(BeerProducer)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.name)
+        super(Beer, self).save(*args, **kwargs)
 
     def __unicode__(self):
         return self.name
@@ -142,12 +146,6 @@ class Rating(models.Model):
     # relationships
     owner = models.ForeignKey(User)
     rated_beer = models.ForeignKey(Beer)
-
-    def save(self, *args, **kwargs):
-        if 0 <= self.rating <= 5:
-            super(Rating, self).save(*args, **kwargs)
-        else:
-            return
 
     class Meta:
         unique_together = ('owner', 'rated_beer')
