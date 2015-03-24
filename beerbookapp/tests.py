@@ -1,21 +1,68 @@
 from django.test import TestCase
-from beerbookapp.models import Rating, Location, City, Beer, BeerType, BeerProducer
+from beerbookapp.models import Rating, Location, City, Beer, BeerType, BeerProducer, Event
 from datetime import datetime
 from django_countries.fields import CountryField
 from django.contrib.auth.models import User
 from django.db import IntegrityError
+from django.core.urlresolvers import reverse
 
 
-# class RatingMethodTest(TestCase):
-#     def test_ensure_ratings_are_positive(self):
-#
-#         this_user = make_test_user()
-#         this_beer = make_test_beer()
-#         this_rating = Rating(owner=this_user, rated_beer=this_beer, rating=-1, review="test", date=datetime.now)
-#         this_rating.save()
-#         self.assertEqual((this_rating.rating >= 0), True)
+class TestEventCataloguePage(TestCase):
 
-# Create your tests here.
+    def test_event_catalogue_with_no_events(self):
+
+        response = self.client.get(reverse('event_catalogue'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No Events found")
+        self.assertQuerysetEqual(response.context['events_list'], [])
+
+    def test_event_catalogue_with_events_present(self):
+
+        make_test_event_stub()
+
+        response = self.client.get(reverse('event_catalogue'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Test Event")
+        num_beers = len(response.context['events_list'])
+        self.assertEquals(num_beers, 1)
+
+
+class TestBeerCataloguePage(TestCase):
+
+    def test_beer_catalogue_with_no_beers(self):
+
+        response = self.client.get(reverse('beer_catalogue'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No beers matching the criteria found")
+        self.assertQuerysetEqual(response.context['beer_list'], [])
+
+    def test_beer_catalogue_with_beers(self):
+
+        make_test_beer_stub()
+
+        response = self.client.get(reverse('beer_catalogue'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Test Beer")
+        num_beers = len(response.context['beer_list'])
+        self.assertEquals(num_beers, 1)
+
+
+class TestIndexPage(TestCase):
+
+    def test_index_page_without_beers(self):
+
+        # top_beers
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "No beers found in database.")
+        self.assertQuerysetEqual(response.context['top_beers'], [])
+
+    def test_index_page_without_events(self):
+
+        response = self.client.get(reverse('index'))
+        self.assertEqual(response.status_code, 200)
+        self.assertContains(response, "Unfortunately there are no upcoming events.")
+        self.assertQuerysetEqual(response.context['recent_events'], [])
 
 
 class TestStubsUser(TestCase):
@@ -107,6 +154,16 @@ class BeerMethodTest(TestCase):
         this_beer.save()
 
         self.assertEquals((this_beer.name == self.beer_name), True)
+        self.assertEquals((this_beer.type == beer_type), True)
+        self.assertEquals((this_beer.producer == beer_producer), True)
+        self.assertEquals((this_beer.description == self.beer_desc), True)
+        self.assertEquals((this_beer.introduced == self.beer_introduced), True)
+        self.assertEquals((this_beer.country == self.beer_country), True)
+
+    def test_ensure_slug_is_created(self):
+
+        this_beer = make_test_beer_stub()
+        self.assertEquals((this_beer.slug == "test-beer"), True)
 
 
 class LocationMethodTest(TestCase):
@@ -176,7 +233,7 @@ class RatingMethodTest(TestCase):
             this_rating2 = make_test_rating(self.r_rating, self.r_review, r_owner, r_beer)
             this_rating_bad = this_rating2.save()
 
-        self.assertEquals((this_rating1 is not None), True)
+        self.assertEquals((this_rating1 is None), False)
         self.assertEquals((this_rating_bad is None), True)
 
 
@@ -303,7 +360,25 @@ def make_test_rating_stub():
     return c
 
 
+def make_test_event(title, event_datetime, description, owner, location):
+    c = Event(title=title,
+              datetime=event_datetime,
+              description=description,
+              owner=owner,
+              location=location)
+    return c
 
+
+def make_test_event_stub():
+    title = "Test Event"
+    e_datetime = datetime.now()
+    description = "Description of Test Event"
+    owner = make_test_user_stub()
+    location = make_test_location_stub()
+    c = make_test_event(title, e_datetime, description, owner, location)
+    c.save()
+
+    return c
 
 
 
