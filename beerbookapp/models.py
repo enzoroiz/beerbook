@@ -62,11 +62,7 @@ class Beer(models.Model):
 
     # relationships
     type = models.ForeignKey(BeerType)
-    producer = models.ForeignKey(BeerProducer)
-
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.name)
-        super(Beer, self).save(*args, **kwargs)
+    producer = models.ForeignKey(BeerProducer)    
 
     def __unicode__(self):
         return self.name
